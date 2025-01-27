@@ -18,10 +18,12 @@ function useTaskReducer() {
   const [task, setTask] = useState<Task | undefined>(undefined);
 
   const getTask = (id: number) => {
-    setTask(tasks.find((task) => task.id === id));
+    const foundTask = tasks.find((task) => task.id == id);
+    setTask(foundTask || { id: 0, name: "", description: "" });
+    console.log("get task function", foundTask);
   };
-
   const addTask = (task: Task) => {
+    if (!task) return;
     setTasks([...tasks, task]);
   };
 

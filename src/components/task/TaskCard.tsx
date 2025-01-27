@@ -19,6 +19,7 @@ export function TaskCard({ task }: { task: Task }) {
   }
 
   function handleShowDetails() {
+    if (!task.id) return;
     getTask(task.id);
   }
 
