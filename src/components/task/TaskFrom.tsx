@@ -26,11 +26,11 @@ export function TaskForm() {
       const newTask: Task = {
         id: tasks.length + 1,
         name: nameRef.current.value,
+        dueDate: new Date(),
       };
       addTask(newTask);
     }
   }
-
   return (
     <div className="px-2 py-4">
       <form onSubmit={handleAddTask} className="flex  flex-col gap-4 ">

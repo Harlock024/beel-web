@@ -1,9 +1,10 @@
-import { createContext, useState } from "react";
+import { createContext, useState, Dispatch, SetStateAction } from "react";
 import { Task } from "@/types/task";
 
 interface TaskContextType {
   tasks: Task[];
   task: Task | undefined;
+  setTask: Dispatch<SetStateAction<Task | undefined>>;
   getTask: (id: number) => void;
   addTask: (task: Task) => void;
   removeTask: (id: number) => void;
@@ -13,51 +14,57 @@ export const TaskContext = createContext<undefined | TaskContextType>(
   undefined,
 );
 function useTaskReducer() {
-  const [tasks, setTasks] = useState<Task[]>([
-    {
-      id: 1,
-      name: "Task 1",
-      description: "Description 1",
-    },
-    {
-      id: 2,
-      name: "Task 2",
-      description: "Description 2",
-    },
-    {
-      id: 3,
-      name: "Task 3",
-      description: "Description 3",
-    },
-  ]);
+  const [tasks, setTasks] = useState<Task[]>([]);
   const [task, setTask] = useState<Task | undefined>(undefined);
-
   const getTask = (id: number) => {
     const foundTask = tasks.find((task) => task.id == id);
     setTask(foundTask || { id: 0, name: "", description: "" });
-    console.log("get task function", foundTask);
-  };
-  const addTask = (task: Task) => {
-    if (!task) return;
-    setTasks([...tasks, task]);
   };
 
+  const addTask = (task: Task) => {
+    if (!task) return;
+    setTasks([
+      ...tasks,
+      {
+        ...task,
+        id: tasks.length + 1,
+        name: task.name,
+        description: task.description,
+        dueDate: task.dueDate,
+      },
+    ]);
+  };
   const removeTask = (id: number) => {
     setTasks(tasks.filter((task) => task.id !== id));
   };
   const editTask = (task: Task) => {
     setTasks(tasks.map((t) => (t.id === task.id ? { ...t, ...task } : t)));
   };
-
-  return { tasks, task, getTask, addTask, removeTask, editTask };
+  return {
+    tasks,
+    task,
+    setTask,
+    getTask,
+    addTask,
+    removeTask,
+    editTask,
+  };
 }
 export function TaskProvider({ children }: { children: React.ReactNode }) {
-  const { tasks, task, getTask, addTask, removeTask, editTask } =
+  const { tasks, task, setTask, getTask, addTask, removeTask, editTask } =
     useTaskReducer();
 
   return (
     <TaskContext.Provider
-      value={{ tasks, task, getTask, addTask, removeTask, editTask }}
+      value={{
+        tasks,
+        task,
+        setTask,
+        getTask,
+        addTask,
+        removeTask,
+        editTask,
+      }}
     >
       {children}
     </TaskContext.Provider>

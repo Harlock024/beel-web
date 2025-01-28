@@ -1,14 +1,17 @@
-import React, { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { Task } from "@/types/task";
 import useTask from "./hook/useTask";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { Ban, Pen, Target } from "lucide-react";
-import { Input } from "../ui/input";
+import { ChevronDown } from "lucide-react";
 import { Button } from "../ui/button";
-import { TaskProvider } from "./context/TasksProvider";
-import { Toast } from "../ui/toast";
 import { useToast } from "@/hooks/use-toast";
+import { Calendar } from "@/components/ui/calendar";
+import { format } from "date-fns";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { CalendarDemo } from "../calendar/CalentadarDemo";
 
 export function TaskDetails() {
   const { task } = useTask();
@@ -18,8 +21,9 @@ export function TaskDetails() {
 function TaskData() {
   const { task, editTask, removeTask } = useTask();
   const { toast } = useToast();
-  console.log("task details ", task);
   const [currentTask, setCurrentTask] = useState<Task | undefined>(undefined);
+  console.log("task", task?.dueDate);
+  console.log("current", currentTask?.dueDate);
 
   function handleEditTask(e: FormEvent) {
     e.preventDefault();
@@ -29,6 +33,7 @@ function TaskData() {
       ...currentTask,
       name: currentTask.name,
       description: currentTask.description || "",
+      dueDate: currentTask.dueDate || new Date(),
     };
     editTask(updateTask);
     return toast({
@@ -47,12 +52,12 @@ function TaskData() {
     removeTask(task.id);
     setCurrentTask(undefined);
   }
+
   return (
     <div className="flex gap-10 ">
-      <form className="flex flex-col" onSubmit={handleEditTask}>
+      <div className="flex flex-col">
         <input
-          type="text"
-          className="border-none shadow-inner h-20 w-60 ring-0 focus:ring-0 focus:outline-none"
+          className="border-none shadow-inner py-2  text-left   ring-0 focus:ring-0 focus:outline-none"
           value={currentTask?.name}
           onChange={(e) =>
             setCurrentTask({ ...currentTask!, name: e.target.value })
@@ -70,13 +75,35 @@ function TaskData() {
           }
           placeholder={task?.description?.toString() || ""}
         />
-        <Button type="submit" className="px-5 py-4">
+        <div>List</div>
+
+        <div className="flex items-center">
+          <div>due date</div>
+          <Popover>
+            <PopoverTrigger>
+              <button className="flex items-center">
+                <div className="text-center">
+                  {currentTask?.dueDate && (
+                    <p>{format(task!.dueDate!, "dd/MM/yyyy")}</p>
+                  )}
+                </div>
+                <ChevronDown />
+              </button>
+            </PopoverTrigger>
+            <PopoverContent>
+              <CalendarDemo />
+            </PopoverContent>
+          </Popover>
+        </div>
+        <div>Tags</div>
+
+        <Button type="button" onClick={handleEditTask} className="px-5 py-4">
           Save changes
         </Button>
         <Button type="button" onClick={handleRemoveTask}>
           Delete
         </Button>
-      </form>
+      </div>
     </div>
   );
 }
