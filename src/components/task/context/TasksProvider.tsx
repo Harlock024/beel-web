@@ -12,9 +12,24 @@ interface TaskContextType {
 export const TaskContext = createContext<undefined | TaskContextType>(
   undefined,
 );
-
 function useTaskReducer() {
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const [tasks, setTasks] = useState<Task[]>([
+    {
+      id: 1,
+      name: "Task 1",
+      description: "Description 1",
+    },
+    {
+      id: 2,
+      name: "Task 2",
+      description: "Description 2",
+    },
+    {
+      id: 3,
+      name: "Task 3",
+      description: "Description 3",
+    },
+  ]);
   const [task, setTask] = useState<Task | undefined>(undefined);
 
   const getTask = (id: number) => {

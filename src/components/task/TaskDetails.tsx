@@ -49,35 +49,34 @@ function TaskData() {
   }
   return (
     <div className="flex gap-10 ">
-      <h1>Task:</h1>
-      <div className="flex gap-10">
-        <form onSubmit={handleEditTask}>
-          <Input
-            type="text"
-            value={currentTask?.name}
-            onChange={(e) =>
-              setCurrentTask({ ...currentTask!, name: e.target.value })
-            }
-            placeholder={task?.name.toString() || ""}
-          />
-          <Textarea
-            value={currentTask?.description || ""}
-            onChange={(e) =>
-              setCurrentTask({
-                ...currentTask!,
-                description: e.target.value,
-              })
-            }
-            placeholder={task?.description?.toLocaleLowerCase() || ""}
-          />
-          <Button type="submit" className="px-5 py-4">
-            Save changes
-          </Button>
-          <Button type="button" onClick={handleRemoveTask}>
-            Delete
-          </Button>
-        </form>
-      </div>
+      <form className="flex flex-col" onSubmit={handleEditTask}>
+        <input
+          type="text"
+          className="border-none shadow-inner h-20 w-60 ring-0 focus:ring-0 focus:outline-none"
+          value={currentTask?.name}
+          onChange={(e) =>
+            setCurrentTask({ ...currentTask!, name: e.target.value })
+          }
+          placeholder={task?.name.toString() || ""}
+        />
+        <textarea
+          className="border-none shadow-inner p-0  h-60  text-left   ring-0 focus:ring-0 focus:outline-none"
+          value={currentTask?.description || ""}
+          onChange={(e) =>
+            setCurrentTask({
+              ...currentTask!,
+              description: e.target.value,
+            })
+          }
+          placeholder={task?.description?.toString() || ""}
+        />
+        <Button type="submit" className="px-5 py-4">
+          Save changes
+        </Button>
+        <Button type="button" onClick={handleRemoveTask}>
+          Delete
+        </Button>
+      </form>
     </div>
   );
 }

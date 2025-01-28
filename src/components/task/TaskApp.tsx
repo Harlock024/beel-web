@@ -7,10 +7,9 @@ import { TaskList } from "./TaskList";
 
 export function TaskApp() {
   return (
-    <div>
+    <div className="flex w-screen ">
       <TaskProvider>
-        <h1>Task App</h1>
-        <div className="flex ">
+        <div className="flex w-screen justify-evenly ">
           <div>
             <TaskForm />
             <TaskList />

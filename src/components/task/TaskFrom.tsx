@@ -37,7 +37,7 @@ export function TaskForm() {
         <div className="justify-center shadow-inner  rounded-md px-4 py-2 items-center  flex  space-x-2">
           <Plus className=" text-gray-400 h-5 w-5" />
           <input
-            className=""
+            className="border-none ring-0 focus:ring-0 focus:outline-none"
             type="text"
             id="name"
             placeholder="Add New Task"
