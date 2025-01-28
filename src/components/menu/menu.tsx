@@ -4,8 +4,8 @@ import { MenuList } from "./menuList";
 
 export function MenuApp() {
   return (
-    <div className="flex h-screen  border border-red-600">
-      <div className="flex flex-col w-full h-full border border-red-600">
+    <div className="flex h-full ">
+      <div className="flex flex-col w-full h-full ">
         <h1 className="flex flex-col size-1/6">Beel</h1>
         <MenuTask />
         <MenuList />

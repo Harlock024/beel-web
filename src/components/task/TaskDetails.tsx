@@ -55,7 +55,7 @@ function TaskData() {
   }
 
   return (
-    <div className="flex gap-10 w-full border border-blue-400 h-screen ">
+    <div className="flex gap-10 w-full  h-full ">
       <div className="flex flex-col w-full h-full">
         <input
           className="border-none shadow-inner py-2  text-left   ring-0 focus:ring-0 focus:outline-none"
