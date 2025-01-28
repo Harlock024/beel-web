@@ -6,7 +6,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 export function TaskList() {
   const { tasks } = useTask();
   return (
-    <div className="flex items-center flex-col h-72 border  space-y-4">
+    <div className="flex flex-col flex-grow items-center w-full h-px  box-border  border-2 border-red-500">
       <ScrollArea className="w-full">
         {tasks.map((task) => (
           <>

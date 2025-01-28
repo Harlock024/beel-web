@@ -1,23 +1,27 @@
+import { MenuApp } from "../menu/menu";
 import { Toaster } from "../ui/toaster";
 import { TaskProvider } from "./context/TasksProvider";
 import useTask from "./hook/useTask";
 import { TaskDetails } from "./TaskDetails";
-import { TaskForm } from "./TaskFrom";
+import { TaskForm } from "./TaskForm";
 import { TaskList } from "./TaskList";
 
 export function TaskApp() {
   return (
-    <div className="flex w-screen ">
-      <TaskProvider>
-        <div className="flex w-screen justify-evenly ">
-          <div>
-            <TaskForm />
-            <TaskList />
-          </div>
+    <TaskProvider>
+      <div className="grid grid-cols-12  w-screen justify-evenly ">
+        <div className="menu col-span-2 ">
+          <MenuApp />
+        </div>
+        <div className="task col-span-7 flex flex-col ">
+          <TaskForm />
+          <TaskList />
+        </div>
+        <div className="taskDetails col-span-3">
           <TaskDetails />
         </div>
-        <Toaster />
-      </TaskProvider>
-    </div>
+      </div>
+      <Toaster />
+    </TaskProvider>
   );
 }

@@ -19,7 +19,7 @@ export function TaskDetails() {
   return <>{task ? <TaskData /> : null}</>;
 }
 function TaskData() {
-  const { task, editTask, removeTask } = useTask();
+  const { task, setTask, editTask, removeTask } = useTask();
   const { toast } = useToast();
   const [currentTask, setCurrentTask] = useState<Task | undefined>(undefined);
   console.log("task", task?.dueDate);
@@ -33,7 +33,7 @@ function TaskData() {
       ...currentTask,
       name: currentTask.name,
       description: currentTask.description || "",
-      dueDate: currentTask.dueDate || new Date(),
+      dueDate: currentTask.dueDate || undefined,
     };
     editTask(updateTask);
     return toast({
@@ -51,11 +51,12 @@ function TaskData() {
     if (!task?.id) return;
     removeTask(task.id);
     setCurrentTask(undefined);
+    setTask(undefined);
   }
 
   return (
-    <div className="flex gap-10 ">
-      <div className="flex flex-col">
+    <div className="flex gap-10 w-full border border-blue-400 h-screen ">
+      <div className="flex flex-col w-full h-full">
         <input
           className="border-none shadow-inner py-2  text-left   ring-0 focus:ring-0 focus:outline-none"
           value={currentTask?.name}
@@ -76,7 +77,6 @@ function TaskData() {
           placeholder={task?.description?.toString() || ""}
         />
         <div>List</div>
-
         <div className="flexitems-center">
           <div className="flex  gap-2">
             <div>due date:</div>
@@ -100,12 +100,18 @@ function TaskData() {
           </div>
         </div>
         <div>Tags</div>
-        <Button type="button" onClick={handleEditTask} className="px-5 py-4">
-          Save changes
-        </Button>
-        <Button type="button" onClick={handleRemoveTask}>
-          Delete
-        </Button>
+        <div className="w-full border flex justify-center gap-10">
+          <Button type="button" onClick={handleEditTask} className="w-56  h-12">
+            Save changes
+          </Button>
+          <Button
+            type="button"
+            onClick={handleRemoveTask}
+            className="w-56  h-12"
+          >
+            Delete
+          </Button>
+        </div>
       </div>
     </div>
   );
