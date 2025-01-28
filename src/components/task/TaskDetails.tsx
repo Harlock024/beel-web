@@ -77,26 +77,29 @@ function TaskData() {
         />
         <div>List</div>
 
-        <div className="flex items-center">
-          <div>due date</div>
-          <Popover>
-            <PopoverTrigger>
-              <button className="flex items-center">
-                <div className="text-center">
-                  {currentTask?.dueDate && (
-                    <p>{format(task!.dueDate!, "dd/MM/yyyy")}</p>
-                  )}
-                </div>
-                <ChevronDown />
-              </button>
-            </PopoverTrigger>
-            <PopoverContent>
-              <CalendarDemo />
-            </PopoverContent>
-          </Popover>
+        <div className="flexitems-center">
+          <div className="flex  gap-2">
+            <div>due date:</div>
+            <Popover>
+              <PopoverTrigger>
+                <button className="flex  items-center">
+                  <div className="text-center  ">
+                    {currentTask?.dueDate && (
+                      <p className="flex space-x-10 ">
+                        {format(task!.dueDate!, "dd/MM/yyyy")}
+                      </p>
+                    )}
+                  </div>
+                  <ChevronDown />
+                </button>
+              </PopoverTrigger>
+              <PopoverContent>
+                <CalendarDemo />
+              </PopoverContent>
+            </Popover>
+          </div>
         </div>
         <div>Tags</div>
-
         <Button type="button" onClick={handleEditTask} className="px-5 py-4">
           Save changes
         </Button>
