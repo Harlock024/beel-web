@@ -5,6 +5,13 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 
 export function TaskList() {
   const { tasks } = useTask();
+
+
+  
+
+
+
+
   return (
     <div className="flex flex-col flex-grow items-center w-full h-px box-border ">
       <ScrollArea className="w-full">

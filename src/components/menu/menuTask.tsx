@@ -8,8 +8,8 @@ import {
 
 export function MenuTask() {
   return (
-    <div className="flex flex-col h-1/2 bg-gray-400 ">
-      <h1 className="font-semibold text-lg">Tasks</h1>
+    <div className="flex flex-col h-1/3  ">
+      <h1 className="font-semibold text-lg ">Tasks</h1>
       <div className="flex items-center gap-2 h-1/2">
         <Clock className="h-5 w-5" />
         Dailys

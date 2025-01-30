@@ -5,6 +5,7 @@ interface TaskContextType {
   tasks: Task[];
   task: Task | undefined;
   setTask: Dispatch<SetStateAction<Task | undefined>>;
+
   getTask: (id: number) => void;
   addTask: (task: Task) => void;
   removeTask: (id: number) => void;

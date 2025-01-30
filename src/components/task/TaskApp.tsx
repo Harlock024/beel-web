@@ -1,4 +1,5 @@
 import { MenuApp } from "../menu/menu";
+import { Sidebar, SidebarProvider, SidebarTrigger } from "../ui/sidebar";
 import { Toaster } from "../ui/toaster";
 import { TaskProvider } from "./context/TasksProvider";
 import useTask from "./hook/useTask";

@@ -6,7 +6,6 @@ import useListStore from "./store/listStore";
 export function ListForm() {
   const nameRef = useRef<HTMLInputElement>(null);
   const { lists, createList } = useListStore();
-  const [error, setError] = useState<string | null>(null);
 
   function handleCreateList(e: FormEvent) {
     e.preventDefault();
@@ -40,7 +39,6 @@ export function ListForm() {
         </div>
         <button className="hidden" type="submit"></button>
       </form>
-      {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
     </div>
   );
 }

@@ -12,15 +12,7 @@ type Store = {
 };
 
 const useListStore = create<Store>((set) => ({
-  lists: [
-    {
-      id: 1,
-      name: "List 1",
-      numTaskAsigned: 0,
-      color: "#FF475A",
-    },
-  ],
-
+  lists: [],
   createList: (list) => set((state) => ({ lists: [...state.lists, list] })),
   updateList(id, updatedList) {
     set((state) => ({
