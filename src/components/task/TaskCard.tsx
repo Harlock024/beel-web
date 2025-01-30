@@ -7,13 +7,15 @@ import { Button } from "../ui/button";
 import { Label } from "@/components/ui/label";
 import { TaskDetails } from "./TaskDetails";
 import { format } from "date-fns";
+import useListStore from "../list/store/listStore";
 
 export function TaskCard({ task }: { task: Task }) {
   const [doneTask, setDoneTask] = useState(false);
   const [name, setName] = useState(task.name);
   const [description, setDescription] = useState(task.description);
-
   const { getTask } = useTask();
+  const { lists } = useListStore();
+  const list = lists.find((list) => list.id === task.listId);
 
   function handleDoneTask() {
     setDoneTask(!doneTask);
@@ -41,15 +43,16 @@ export function TaskCard({ task }: { task: Task }) {
               {task?.name}
             </Label>
           </div>
-          <div className="flex gap-2 items-center font-semibold text-gray-600 ml-5 ">
+          <div className="flex  items-center justify-evenly font-semibold text-gray-600 ml-5 ">
             {task?.dueDate && (
-              <>
+              <div className="flex items-center gap-2">
                 <CalendarX className="h-5 w-5" />
                 <p className="flex space-x-10 ">
                   {format(task!.dueDate!, "dd/MM/yyyy")}
                 </p>
-              </>
+              </div>
             )}
+            {list && <div className="flex items-center">{list.name}</div>}
           </div>
         </div>
         <ChevronRight />

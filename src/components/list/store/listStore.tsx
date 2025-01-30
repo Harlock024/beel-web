@@ -4,9 +4,9 @@ import { List } from "@/types/list";
 type Store = {
   lists: List[];
   createList: (list: List) => void;
+  updateList: (id: number, updatedlist: Partial<List>) => void;
   deleteList: (id: number) => void;
 };
-
 const useListStore = create<Store>((set) => ({
   lists: [
     {
@@ -15,11 +15,18 @@ const useListStore = create<Store>((set) => ({
       numTaskAsigned: 0,
     },
   ],
+
   createList: (list) => set((state) => ({ lists: [...state.lists, list] })),
+  updateList(id, updatedList) {
+    set((state) => ({
+      lists: state.lists.map((list) =>
+        list.id === id ? { ...list, ...updatedList } : list,
+      ),
+    }));
+  },
   deleteList: (id) =>
     set((state) => ({
       lists: state.lists.filter((list) => list.id !== id),
     })),
 }));
-
 export default useListStore;
