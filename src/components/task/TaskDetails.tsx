@@ -22,8 +22,7 @@ export function TaskDetails() {
 function TaskData() {
   const { task, setTask, editTask, removeTask } = useTask();
   const { toast } = useToast();
-  const { lists } = useList();
-
+  const { lists, numofTasksAsigned, decrementNumofTasksAsigned } = useList();
   const [currentTask, setCurrentTask] = useState<Task | undefined>(task);
 
   useEffect(() => {
@@ -41,7 +40,6 @@ function TaskData() {
       dueDate: currentTask.dueDate || undefined,
       listId: currentTask.listId || undefined,
     };
-
     editTask(updatedTask);
     toast({
       variant: "default",
@@ -52,6 +50,10 @@ function TaskData() {
   const handleRemoveTask = (e: FormEvent) => {
     e.preventDefault();
     if (!task?.id) return;
+
+    if (task.listId) {
+      decrementNumofTasksAsigned(task.listId);
+    }
 
     removeTask(task.id);
     setCurrentTask(undefined);
@@ -64,11 +66,17 @@ function TaskData() {
       dueDate: date,
     }));
   };
+
   const handleListChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const listId = parseInt(e.target.value);
+    const newListId = parseInt(e.target.value);
+
+    if (currentTask?.listId) {
+      decrementNumofTasksAsigned(currentTask.listId);
+    }
+    numofTasksAsigned(newListId);
     setCurrentTask((prevTask) => ({
       ...prevTask!,
-      listId: listId,
+      listId: newListId,
     }));
   };
 
@@ -85,7 +93,6 @@ function TaskData() {
           }
           placeholder="Task name"
         />
-
         <textarea
           className="border-none shadow-inner p-0 h-60 text-left ring-0 focus:ring-0 focus:outline-none"
           value={currentTask.description || ""}
@@ -94,7 +101,6 @@ function TaskData() {
           }
           placeholder="Task description"
         />
-
         <div className="flex items-center">
           <div className="flex gap-2">
             <div>List:</div>
@@ -111,7 +117,6 @@ function TaskData() {
             </select>
           </div>
         </div>
-
         <div className="flex items-center">
           <div className="flex gap-2">
             <div>Due date:</div>
@@ -136,7 +141,6 @@ function TaskData() {
             </Popover>
           </div>
         </div>
-
         <div className="w-full border flex justify-center gap-10">
           <Button type="button" onClick={handleEditTask} className="w-56 h-12">
             Save changes
