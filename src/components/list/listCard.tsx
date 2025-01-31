@@ -1,17 +1,20 @@
 import { List } from "@/types/list";
 import { Label } from "../ui/label";
+import useTask from "@/components/task/store/TaskStore";
+import { FormEvent } from "react";
+import useList from "./store/listStore";
 
 interface ListCardProps {
   list: List;
+  isSelected: boolean;
+  onClick: () => void;
 }
 
-export function ListCard({ list }: ListCardProps) {
+export function ListCard({ list, isSelected, onClick }: ListCardProps) {
   return (
-    <div
+    <button
       className="flex items-center w-full justify-between p-2 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer"
-      role="button"
-      aria-label={`List ${list.name} with ${list.numTaskAsigned} tasks`}
-      tabIndex={0}
+      onClick={onClick}
     >
       <div className="flex items-center gap-2 flex-1">
         <div
@@ -27,6 +30,6 @@ export function ListCard({ list }: ListCardProps) {
       >
         {list.numTaskAsigned}
       </div>
-    </div>
+    </button>
   );
 }

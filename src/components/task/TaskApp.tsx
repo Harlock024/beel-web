@@ -1,15 +1,15 @@
+import useListStore from "../list/store/listStore";
 import { MenuApp } from "../menu/menu";
 import { Sidebar, SidebarProvider, SidebarTrigger } from "../ui/sidebar";
 import { Toaster } from "../ui/toaster";
-import { TaskProvider } from "./context/TasksProvider";
-import useTask from "./hook/useTask";
+import useTask from "./store/TaskStore";
 import { TaskDetails } from "./TaskDetails";
 import { TaskForm } from "./TaskForm";
 import { TaskList } from "./TaskList";
 
 export function TaskApp() {
   return (
-    <TaskProvider>
+    <>
       <div className="grid grid-cols-12 gap-2  w-screen">
         <div className="menu col-span-2 bg-white my-4 rounded-s-2xl p-1">
           <MenuApp />
@@ -23,6 +23,6 @@ export function TaskApp() {
         </div>
       </div>
       <Toaster />
-    </TaskProvider>
+    </>
   );
 }
