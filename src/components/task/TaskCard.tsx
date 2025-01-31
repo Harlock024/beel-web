@@ -1,6 +1,6 @@
 import { Task } from "@/types/task";
 import { Card, CardContent, CardDescription, CardHeader } from "../ui/card";
-import useTask from "./hook/useTask";
+import useTask from "./store/TaskStore";
 import { FormEvent, useState } from "react";
 import { ChevronRight, Trash, CalendarX } from "lucide-react";
 import { Button } from "../ui/button";
@@ -20,7 +20,6 @@ export function TaskCard({ task }: { task: Task }) {
   function handleDoneTask() {
     setDoneTask(!doneTask);
   }
-
   function handleShowDetails() {
     if (!task.id) return;
     getTask(task.id);
@@ -31,7 +30,7 @@ export function TaskCard({ task }: { task: Task }) {
       key={task.id}
       className="flex px-4  py-2 gap-2 justify-center items-center "
     >
-      <button className="flex   w-full" onClick={handleShowDetails}>
+      <button className="flex w-full" onClick={handleShowDetails}>
         <div className="flex flex-col w-full">
           <div className="flex gap-2 py-2 ">
             <input onChange={handleDoneTask} type="checkbox" />

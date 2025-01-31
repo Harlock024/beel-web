@@ -3,7 +3,7 @@ import { Task } from "@/types/task";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
-import useTask from "./hook/useTask";
+import useTask from "./store/TaskStore";
 import { useToast } from "@/hooks/use-toast";
 import { Plus } from "lucide-react";
 

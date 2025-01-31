@@ -1,30 +1,27 @@
 import { FormEvent, useEffect, useState } from "react";
 import { Task } from "@/types/task";
-import useTask from "./hook/useTask";
+import useTask from "./store/TaskStore";
 import { ChevronDown } from "lucide-react";
 import { Button } from "../ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { format } from "date-fns";
+import { CalendarDemo } from "../calendar/CalentadarDemo";
+import useList from "@/components/list/store/listStore";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { CalendarDemo } from "../calendar/CalentadarDemo";
-import useList from "@/components/list/store/listStore";
 
 export function TaskDetails() {
   const { task } = useTask();
-
   return <>{task ? <TaskData /> : null}</>;
 }
-
 function TaskData() {
-  const { task, setTask, editTask, removeTask } = useTask();
+  const { task, editTask, removeTask } = useTask();
   const { toast } = useToast();
   const { lists, numofTasksAsigned, decrementNumofTasksAsigned } = useList();
   const [currentTask, setCurrentTask] = useState<Task | undefined>(task);
-
   useEffect(() => {
     setCurrentTask(task);
   }, [task]);
@@ -54,10 +51,8 @@ function TaskData() {
     if (task.listId) {
       decrementNumofTasksAsigned(task.listId);
     }
-
     removeTask(task.id);
     setCurrentTask(undefined);
-    setTask(undefined);
   };
 
   const handleDateChange = (date: Date | undefined) => {
@@ -79,7 +74,6 @@ function TaskData() {
       listId: newListId,
     }));
   };
-
   if (!currentTask) return null;
 
   return (
