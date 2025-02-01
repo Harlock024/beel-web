@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import { Task } from "@/types/task";
-
 type StoreTask = {
   tasks: Task[];
   task: Task | undefined;

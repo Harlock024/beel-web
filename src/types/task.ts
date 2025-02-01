@@ -4,4 +4,5 @@ export interface Task {
   description?: string;
   listId?: number;
   dueDate?: Date;
+  tags?: String[];
 }

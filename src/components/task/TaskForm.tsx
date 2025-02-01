@@ -7,7 +7,7 @@ import useTask from "./store/TaskStore";
 import { useToast } from "@/hooks/use-toast";
 import { Plus } from "lucide-react";
 
-export function TaskForm() {
+export function TaskForm({ className }: { className?: string }) {
   const { addTask, tasks } = useTask();
   const [task, setTask] = useState<Task | null>(null);
   const nameRef = useRef<HTMLInputElement>(null);
@@ -31,7 +31,7 @@ export function TaskForm() {
     }
   }
   return (
-    <div className="px-2 py-4">
+    <div className={className}>
       <form onSubmit={handleAddTask} className="flex  flex-col gap-4 ">
         <div className="justify-start   shadow-inner rounded-md px-4 py-2 items-center  flex  space-x-2">
           <Plus className="text-gray-400 h-5 w-5" />
