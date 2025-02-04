@@ -21,6 +21,7 @@ export function TaskForm({ className }: { className?: string }) {
         description: "Name is required",
       });
     }
+
     if (nameRef.current) {
       const newTask: Task = {
         id: tasks.length + 1,
@@ -30,13 +31,14 @@ export function TaskForm({ className }: { className?: string }) {
       nameRef.current.value = "";
     }
   }
+
   return (
     <div className={className}>
-      <form onSubmit={handleAddTask} className="flex  flex-col gap-4 ">
-        <div className="justify-start   shadow-inner rounded-md px-4 py-2 items-center  flex  space-x-2">
+      <form onSubmit={handleAddTask} className="flex flex-col gap-4 ">
+        <div className="justify-start shadow-inner rounded-md px-4 py-2 items-center  flex  space-x-2">
           <Plus className="text-gray-400 h-5 w-5" />
           <input
-            className="border-none  ring-0 focus:ring-0 focus:outline-none"
+            className="border-none  w-full ring-0 focus:ring-0 focus:outline-none"
             type="text"
             id="name"
             placeholder="Add New Task"

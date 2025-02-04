@@ -1,13 +1,19 @@
 import React from "react";
-import { MenuTask } from "./sidebarTask";
 import { MenuList } from "./sidebarList";
 import { MenuTags } from "./sidebarTags";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Settings, LogOut } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { SidebarTask } from "./sidebarTask";
 
-export function Sidebar({ className }: { className?: string }) {
+export function Sidebar({
+  className,
+  onMenuClick,
+}: {
+  className?: string;
+  onMenuClick?: (view: string) => void;
+}) {
   return (
     <div
       className={cn(
@@ -19,7 +25,7 @@ export function Sidebar({ className }: { className?: string }) {
         <h1 className="text-2xl font-bold truncate">Beel</h1>
       </div>
       <nav className="flex-1 px-2 py-4 space-y-4 overflow-y-auto">
-        <MenuTask />
+        <SidebarTask onMenuClick={onMenuClick!} />
         <Separator className="my-2" />
         <MenuList />
         <Separator className="my-2" />

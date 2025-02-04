@@ -1,8 +1,8 @@
 import { Task } from "@/types/task";
-import { Card, CardContent, CardDescription, CardHeader } from "../ui/card";
+import { Card, CardContent, CardHeader } from "../ui/card";
 import useTask from "./store/TaskStore";
-import { FormEvent, useState } from "react";
-import { ChevronRight, Trash, CalendarX } from "lucide-react";
+import { useState } from "react";
+import { ChevronRight, CalendarX } from "lucide-react";
 import { Button } from "../ui/button";
 import { Label } from "@/components/ui/label";
 import { TaskDetails } from "./TaskDetails";
@@ -11,8 +11,6 @@ import useListStore from "../list/store/listStore";
 
 export function TaskCard({ task }: { task: Task }) {
   const [doneTask, setDoneTask] = useState(false);
-  const [name, setName] = useState(task.name);
-  const [description, setDescription] = useState(task.description);
   const { getTask } = useTask();
   const { lists } = useListStore();
   const list = lists.find((list) => list.id === task.listId);
@@ -20,7 +18,7 @@ export function TaskCard({ task }: { task: Task }) {
   function handleDoneTask() {
     setDoneTask(!doneTask);
   }
-  function handleShowDetails() {
+  function handleTaskClick() {
     if (!task.id) return;
     getTask(task.id);
   }
@@ -30,7 +28,7 @@ export function TaskCard({ task }: { task: Task }) {
       key={task.id}
       className="flex px-4  py-2 gap-2 justify-center items-center "
     >
-      <button className="flex w-full" onClick={handleShowDetails}>
+      <button className="flex w-full" onClick={handleTaskClick}>
         <div className="flex flex-col w-full">
           <div className="flex gap-2 py-2 ">
             <input onChange={handleDoneTask} type="checkbox" />

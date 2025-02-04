@@ -20,6 +20,7 @@ export function ListForm() {
     }
     nameRef!.current!.value = "";
   }
+
   return (
     <form
       onSubmit={handleCreateList}

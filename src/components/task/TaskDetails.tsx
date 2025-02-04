@@ -13,13 +13,9 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
+import { Subtask } from "../subTask/SubTask";
 
 export function TaskDetails({ className }: { className?: string }) {
-  const { task } = useTask();
-  return task ? <TaskData className={className} /> : null;
-}
-
-function TaskData({ className }: { className?: string }) {
   const { task, editTask, removeTask } = useTask();
   const { toast } = useToast();
   const { lists, numofTasksAsigned, decrementNumofTasksAsigned } = useList();
@@ -77,9 +73,7 @@ function TaskData({ className }: { className?: string }) {
       listId: newListId,
     }));
   };
-
   if (!currentTask) return null;
-
   return (
     <div className={cn("flex flex-col w-full h-full", className)}>
       <input
@@ -137,7 +131,11 @@ function TaskData({ className }: { className?: string }) {
           </PopoverContent>
         </Popover>
       </div>
-      <div className="flex justify-center gap-4 mt-4">
+      <div></div>
+      <div>
+        <Subtask />
+      </div>
+      <div className="flex justify-center h-screen items-end  gap-4 mt-4">
         <Button onClick={handleEditTask} className="w-full">
           Save changes
         </Button>

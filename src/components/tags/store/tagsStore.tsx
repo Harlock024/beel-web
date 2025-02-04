@@ -7,7 +7,7 @@ type TagStore = {
 };
 
 const useTagStore = create<TagStore>((set) => ({
-  tags: ["tag1", "tag2"],
+  tags: [],
   addTag: (tag: string) => {
     set((state) => ({ tags: [...state.tags, tag] }));
   },
