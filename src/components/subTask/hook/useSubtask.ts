@@ -11,15 +11,18 @@ type SubTaskStore = {
 
 export const useSubtaskStore = create<SubTaskStore>((set) => ({
   addSubTask: (subtask, taskId) => {
+    console.log("Adding subtask:", subtask, "to task ID:", taskId);
     const tasks = useTaskStore.getState().tasks;
+
     const updatedTasks = tasks.map((task) =>
       task.id === taskId
         ? { ...task, subTasks: [...(task.subTasks || []), subtask] }
         : task,
     );
-    useTaskStore.setState({ tasks: updatedTasks });
-  },
+    const updateTask = updatedTasks.find((task) => task.id === taskId);
 
+    useTaskStore.setState({ tasks: updatedTasks, task: updateTask });
+  },
   countSubTask: (task) => {
     const countSubtask = task.subTasks?.length! | 0;
     return countSubtask;

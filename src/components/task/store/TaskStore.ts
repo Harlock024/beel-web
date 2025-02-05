@@ -10,7 +10,13 @@ type TaskStore = {
   editTask: (task: Task) => void;
 };
 export const useTaskStore = create<TaskStore>((set) => ({
-  tasks: [],
+  tasks: [
+    {
+      id: 1,
+      name: "task",
+      subTasks: ["subtask1", "subtask2"],
+    },
+  ],
   task: undefined,
   getTask: (id) => {
     const task = useTaskStore.getState().tasks.find((task) => task.id === id);
