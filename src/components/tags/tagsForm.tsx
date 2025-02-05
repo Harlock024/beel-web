@@ -1,22 +1,28 @@
 import { Plus } from "lucide-react";
 import useTags from "./store/tagsStore";
-import { FormEvent, useRef } from "react";
+import { FormEvent, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Popover } from "@radix-ui/react-popover";
 import { PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Tag } from "@/types/tags";
+import {
+  BlockPickerProps,
+  BlockPicker,
+  Color,
+  SketchPicker,
+} from "react-color";
 
 export function TagsForm() {
   const { addTag } = useTags();
   const nameTag = useRef<HTMLInputElement>(null);
-  const colorTag = useRef<HTMLInputElement>(null);
+  const [color, setColor] = useState("#7fdde9");
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    if (nameTag.current?.value) {
+    if (nameTag.current?.value && color) {
       const newTag: Tag = {
         name: nameTag.current.value,
-        color: colorTag.current?.value || "#fff",
+        color: color,
       };
       addTag(newTag);
     }
@@ -39,12 +45,20 @@ export function TagsForm() {
             ref={nameTag}
             className="border-none placeholder:font-normal font-normal ring-0 focus:ring-0 focus:outline-none flex-1 ml-2 bg-transparent"
           />
-          <input
-            type="color"
-            placeholder="new color"
-            ref={colorTag}
-            className="border-none"
-          />
+          <Popover>
+            <PopoverTrigger>
+              <button
+                type="button"
+                className="rounded-md p-1"
+                style={{ backgroundColor: color }}
+              >
+                color
+              </button>
+            </PopoverTrigger>
+            <PopoverContent className="flex w-auto justify-center p-0 mt-2 ">
+              <BlockPicker color={color} onChange={(e) => setColor(e.hex)} />
+            </PopoverContent>
+          </Popover>
           <button type="submit" className="hidden"></button>
         </form>
       </PopoverContent>

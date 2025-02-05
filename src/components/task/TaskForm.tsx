@@ -35,6 +35,7 @@ export function TaskForm({ className }: { className?: string }) {
             type="text"
             id="name"
             placeholder="Add New Task"
+            value={taskName}
             onChange={(e) => setTaskName(e.target.value)}
           />
         </div>
