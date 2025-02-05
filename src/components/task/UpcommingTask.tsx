@@ -1,11 +1,11 @@
 import { Task } from "@/types/task";
-import useTask from "../task/store/TaskStore";
+import { useTaskStore } from "../task/store/TaskStore";
 import { useMemo } from "react";
 import { isToday, isTomorrow, isThisWeek } from "date-fns";
 import { TaskCard } from "./TaskCard";
 
 export function UpcomingTask() {
-  const { tasks } = useTask();
+  const { tasks } = useTaskStore();
 
   const filteredTasks = useMemo(() => {
     if (!tasks) return { today: [], tomorrow: [], thisWeek: [] };

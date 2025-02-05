@@ -1,34 +1,27 @@
-import React, { FormEvent, useRef, useState } from "react";
+import { FormEvent, useState } from "react";
 import { Task } from "@/types/task";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
-import { Button } from "../ui/button";
-import useTask from "./store/TaskStore";
+import { useTaskStore } from "./store/TaskStore";
 import { useToast } from "@/hooks/use-toast";
 import { Plus } from "lucide-react";
-
 export function TaskForm({ className }: { className?: string }) {
-  const { addTask, tasks } = useTask();
-  const [task, setTask] = useState<Task | null>(null);
-  const nameRef = useRef<HTMLInputElement>(null);
+  const { addTask } = useTaskStore();
   const { toast } = useToast();
-
+  const [taskName, setTaskName] = useState("");
   function handleAddTask(e: FormEvent) {
     e.preventDefault();
-    if (!nameRef.current?.value) {
+    if (!taskName) {
       return toast({
         variant: "default",
         description: "Name is required",
       });
     }
-
-    if (nameRef.current) {
+    if (taskName) {
       const newTask: Task = {
-        id: tasks.length + 1,
-        name: nameRef.current.value,
+        id: Math.floor(Math.random() * 1000),
+        name: taskName,
       };
       addTask(newTask);
-      nameRef.current.value = "";
+      setTaskName("");
     }
   }
 
@@ -42,7 +35,7 @@ export function TaskForm({ className }: { className?: string }) {
             type="text"
             id="name"
             placeholder="Add New Task"
-            ref={nameRef}
+            onChange={(e) => setTaskName(e.target.value)}
           />
         </div>
         <button className="hidden" type="submit">

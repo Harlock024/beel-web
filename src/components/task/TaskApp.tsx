@@ -1,14 +1,14 @@
 import useListStore from "../list/store/listStore";
 import { Sidebar } from "../sidebar/sidebar";
 import { Toaster } from "../ui/toaster";
-import useTask from "./store/TaskStore";
+import { useTaskStore } from "./store/TaskStore";
 import { TaskDetails } from "./TaskDetails";
 import { TaskForm } from "./TaskForm";
 import { TaskList } from "./TaskList";
 import { UpcomingTask } from "./UpcommingTask";
 import { useState } from "react";
 export function TaskApp() {
-  const { task } = useTask();
+  const { task } = useTaskStore();
   const [activeView, setActiveView] = useState<string>("today");
   const renderContent = () => {
     switch (activeView) {
@@ -40,7 +40,7 @@ export function TaskApp() {
           } transition-all duration-300 ease-out`}
         >
           <TaskForm className="w-full border" />
-          {renderContent()}{" "}
+          {renderContent()}
         </div>
         {task && (
           <div className="w-[50%] overflow-y-auto transition-all duration-300 ease-in-out">

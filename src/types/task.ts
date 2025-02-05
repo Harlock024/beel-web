@@ -1,9 +1,9 @@
 export interface Task {
-  id: number;
+  id?: number;
   name: string;
   description?: string;
   listId?: number;
   dueDate?: Date;
-  tags?: String[];
+  tags?: string[];
   subTasks?: string[];
 }

@@ -1,7 +1,5 @@
 import { List } from "@/types/list";
 import { Label } from "../ui/label";
-import useTask from "@/components/task/store/TaskStore";
-import { FormEvent } from "react";
 import useList from "./store/listStore";
 
 interface ListCardProps {
@@ -9,7 +7,6 @@ interface ListCardProps {
   isSelected: boolean;
   onClick: () => void;
 }
-
 export function ListCard({ list, isSelected, onClick }: ListCardProps) {
   return (
     <button

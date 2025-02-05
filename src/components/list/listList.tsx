@@ -1,20 +1,21 @@
 import { ScrollArea } from "../ui/scroll-area";
 import { ListCard } from "./listCard";
 import useListStore from "./store/listStore";
-import useTask from "../task/store/TaskStore";
+import { useFilterStore } from "../task/store/FilterStore";
 import { useEffect } from "react";
 
 export function ListList() {
   const { lists, selectedListId, deselectList, selectList } = useListStore();
-  const { ListIdFiltered, resetFilter } = useTask();
+  const { resetFilter, filterByListId } = useFilterStore();
 
   useEffect(() => {
     if (selectedListId !== null) {
-      ListIdFiltered(selectedListId);
+      filterByListId(selectedListId);
     } else {
       resetFilter();
     }
-  }, [selectedListId, ListIdFiltered, resetFilter]);
+    filterByListId;
+  }, [selectedListId, , resetFilter]);
 
   const handleListClick = (id: number) => {
     if (selectedListId === id) {
@@ -22,7 +23,7 @@ export function ListList() {
       resetFilter();
     } else {
       selectList(id);
-      ListIdFiltered(id);
+      filterByListId(id);
     }
   };
 

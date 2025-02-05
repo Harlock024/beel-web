@@ -1,6 +1,6 @@
 import { FormEvent, useEffect, useState } from "react";
 import { Task } from "@/types/task";
-import useTask from "./store/TaskStore";
+import { useTaskStore } from "./store/TaskStore";
 import { ChevronDown } from "lucide-react";
 import { Button } from "../ui/button";
 import { useToast } from "@/hooks/use-toast";
@@ -16,7 +16,7 @@ import { cn } from "@/lib/utils";
 import { Subtask } from "../subTask/SubTask";
 
 export function TaskDetails({ className }: { className?: string }) {
-  const { task, editTask, removeTask } = useTask();
+  const { task, editTask, removeTask } = useTaskStore();
   const { toast } = useToast();
   const { lists, numofTasksAsigned, decrementNumofTasksAsigned } = useList();
   const [currentTask, setCurrentTask] = useState<Task | undefined>(task);
@@ -28,7 +28,6 @@ export function TaskDetails({ className }: { className?: string }) {
   const handleEditTask = (e: FormEvent) => {
     e.preventDefault();
     if (!currentTask) return;
-
     const updatedTask: Task = {
       ...currentTask,
       name: currentTask.name,
@@ -46,7 +45,6 @@ export function TaskDetails({ className }: { className?: string }) {
   const handleRemoveTask = (e: FormEvent) => {
     e.preventDefault();
     if (!task?.id) return;
-
     if (task.listId) {
       decrementNumofTasksAsigned(task.listId);
     }

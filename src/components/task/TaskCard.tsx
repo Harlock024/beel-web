@@ -1,6 +1,6 @@
 import { Task } from "@/types/task";
 import { Card, CardContent, CardHeader } from "../ui/card";
-import useTask from "./store/TaskStore";
+import { useTaskStore } from "./store/TaskStore";
 import { useState } from "react";
 import { ChevronRight, CalendarX } from "lucide-react";
 import { Button } from "../ui/button";
@@ -11,7 +11,7 @@ import useListStore from "../list/store/listStore";
 
 export function TaskCard({ task }: { task: Task }) {
   const [doneTask, setDoneTask] = useState(false);
-  const { getTask } = useTask();
+  const { getTask } = useTaskStore();
   const { lists } = useListStore();
   const list = lists.find((list) => list.id === task.listId);
 
@@ -21,14 +21,14 @@ export function TaskCard({ task }: { task: Task }) {
   function handleTaskClick() {
     if (!task.id) return;
     getTask(task.id);
+    console.log("task card ", task.id);
   }
-
   return (
     <div
       key={task.id}
       className="flex px-4  py-2 gap-2 justify-center items-center "
     >
-      <button className="flex w-full" onClick={handleTaskClick}>
+      <button className="flex w-full " onClick={handleTaskClick}>
         <div className="flex flex-col w-full">
           <div className="flex gap-2 py-2 ">
             <input onChange={handleDoneTask} type="checkbox" />
