@@ -8,7 +8,6 @@ export function TaskList({ className }: { className?: string }) {
   const { tasks } = useTaskStore();
   const { isFiltered, filteredTasks } = useFilterStore();
   const tasksToShow = isFiltered ? filteredTasks : tasks;
-
   return (
     <div className={className}>
       <ScrollArea className="w-full">

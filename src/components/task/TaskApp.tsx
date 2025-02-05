@@ -5,6 +5,7 @@ import { useTaskStore } from "./store/TaskStore";
 import { TaskDetails } from "./TaskDetails";
 import { TaskForm } from "./TaskForm";
 import { TaskList } from "./TaskList";
+import { TodayTask } from "./todayTask";
 import { UpcomingTask } from "./UpcommingTask";
 import { useState } from "react";
 export function TaskApp() {
@@ -15,7 +16,7 @@ export function TaskApp() {
       case "dailys":
         return <TaskList className="flex-1 overflow-y-auto" />;
       case "today":
-        return <TaskList className="flex-1 overflow-y-auto" />;
+        return <TodayTask className="flex-1 overflow-y-auto" />;
       case "upcoming":
         return <UpcomingTask />;
       case "calendar":

@@ -1,6 +1,6 @@
 import { Task } from "@/types/task";
 import { useTaskStore } from "../task/store/TaskStore";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { isToday, isTomorrow, isThisWeek } from "date-fns";
 import { TaskCard } from "./TaskCard";
 
@@ -17,11 +17,26 @@ export function UpcomingTask() {
     const tomorrowTasks = tasks.filter((task) =>
       task.dueDate ? isTomorrow(task.dueDate) : false,
     );
+    const countUpcomingTasks = tasks.reduce(
+      (acc, task) => {
+        if (task.dueDate) {
+          if (isToday(task.dueDate)) {
+            acc.today += 1;
+          } else if (isTomorrow(task.dueDate)) {
+            acc.tomorrow += 1;
+          } else if (isThisWeek(task.dueDate, { weekStartsOn: 1 })) {
+            acc.thisWeek += 1;
+          }
+        }
+        return acc;
+      },
+      { today: 0, tomorrow: 0, thisWeek: 0 },
+    );
 
     const thisWeekTasks = tasks.filter(
       (task) =>
         task.dueDate &&
-        isThisWeek(task.dueDate, { weekStartsOn: 1 }) && // La semana comienza el lunes
+        isThisWeek(task.dueDate, { weekStartsOn: 1 }) &&
         !isToday(task.dueDate) &&
         !isTomorrow(task.dueDate),
     );
@@ -35,7 +50,12 @@ export function UpcomingTask() {
 
   return (
     <div>
-      <h1>Upcoming Tasks</h1>
+      <h1>
+        Upcoming Tasks
+        {filteredTasks.thisWeek.length +
+          filteredTasks.today.length +
+          filteredTasks.tomorrow.length}
+      </h1>
 
       <section>
         <h2>Today</h2>

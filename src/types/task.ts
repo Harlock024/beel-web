@@ -1,4 +1,5 @@
 import { Subtask } from "./subTask";
+import { Tag } from "./tags";
 
 export interface Task {
   id?: number;
@@ -6,6 +7,6 @@ export interface Task {
   description?: string;
   listId?: number;
   dueDate?: Date;
-  tags?: string[];
+  tags?: Tag[];
   subTasks?: Subtask[];
 }

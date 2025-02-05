@@ -1,17 +1,18 @@
+import { Tag } from "@/types/tags";
 import { create } from "zustand";
 
 type TagStore = {
-  tags: string[];
-  addTag(tag: string): void;
-  removeTag(tag: string): void;
+  tags: Tag[];
+  addTag(tag: Tag): void;
+  removeTag(tag: Tag): void;
 };
 
 const useTagStore = create<TagStore>((set) => ({
   tags: [],
-  addTag: (tag: string) => {
+  addTag: (tag: Tag) => {
     set((state) => ({ tags: [...state.tags, tag] }));
   },
-  removeTag: (tag: string) => {
+  removeTag: (tag: Tag) => {
     set((state) => ({
       tags: state.tags.filter((t) => t !== tag),
     }));
