@@ -1,13 +1,20 @@
 import { Task } from "@/types/task";
 import { useSubtaskStore } from "../subTask/hook/useSubtask";
-import { FormEvent, useRef } from "react";
+import { FormEvent, useRef, useState } from "react";
 import { useTaskStore } from "../task/store/TaskStore";
+import { type Subtask } from "@/types/subTask";
+import { Label } from "../ui/label";
+import { SubTaskCard } from "./SubTaskCard";
 
 export function Subtask() {
   const { addSubTask } = useSubtaskStore();
   const { task } = useTaskStore();
   const nameRef = useRef<HTMLInputElement>(null);
+  const [doneSubtask, setDoneSubtask] = useState(false);
 
+  function handleDoneSubtask() {
+    setDoneSubtask(!doneSubtask);
+  }
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     const subTaskName = nameRef.current?.value;
@@ -15,7 +22,11 @@ export function Subtask() {
       console.warn("Invalid input or task ID is missing");
       return;
     }
-    addSubTask(subTaskName, task.id);
+    const newSubtask: Subtask = {
+      name: subTaskName,
+      state: false,
+    };
+    addSubTask(newSubtask, task.id);
     nameRef!.current!.value = "";
   };
   console.log(task);
@@ -34,7 +45,7 @@ export function Subtask() {
       </form>
       <div className="mt-4">
         {task?.subTasks?.map((subtask) => {
-          return <div>{subtask}</div>;
+          return <SubTaskCard subtask={subtask} />;
         })}
       </div>
     </div>

@@ -1,9 +1,10 @@
 import { useTaskStore } from "@/components/task/store/TaskStore";
+import { Subtask } from "@/types/subTask";
 import { Task } from "@/types/task";
 import { create } from "zustand";
 
 type SubTaskStore = {
-  addSubTask: (subtask: string, taskId: number) => void;
+  addSubTask: (subtask: Subtask, taskId: number) => void;
   deleteSubtask: (task: Task, i: number) => void;
   editSubTask: (task: Task, i: number) => void;
   countSubTask: (task: Task) => number;
@@ -11,7 +12,6 @@ type SubTaskStore = {
 
 export const useSubtaskStore = create<SubTaskStore>((set) => ({
   addSubTask: (subtask, taskId) => {
-    console.log("Adding subtask:", subtask, "to task ID:", taskId);
     const tasks = useTaskStore.getState().tasks;
 
     const updatedTasks = tasks.map((task) =>
