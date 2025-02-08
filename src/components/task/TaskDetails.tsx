@@ -1,7 +1,7 @@
 import { FormEvent, useEffect, useState } from "react";
 import { Task } from "@/types/task";
 import { useTaskStore } from "./store/TaskStore";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, X } from "lucide-react";
 import { Button } from "../ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { format } from "date-fns";
@@ -14,9 +14,10 @@ import {
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { Subtask } from "../subTask/SubTask";
+import { TagSelect } from "../tags/tagSelect";
 
 export function TaskDetails({ className }: { className?: string }) {
-  const { task, editTask, removeTask } = useTaskStore();
+  const { task, editTask, removeTask, closeTask } = useTaskStore();
   const { toast } = useToast();
   const { lists, numofTasksAsigned, decrementNumofTasksAsigned } = useList();
   const [currentTask, setCurrentTask] = useState<Task | undefined>(task);
@@ -24,6 +25,11 @@ export function TaskDetails({ className }: { className?: string }) {
   useEffect(() => {
     setCurrentTask(task);
   }, [task]);
+
+  const handleCloseTask = () => {
+    setCurrentTask(undefined);
+    closeTask();
+  };
 
   const handleEditTask = (e: FormEvent) => {
     e.preventDefault();
@@ -74,6 +80,9 @@ export function TaskDetails({ className }: { className?: string }) {
   if (!currentTask) return null;
   return (
     <div className={cn("flex flex-col w-full h-full", className)}>
+      <button type="button" onClick={handleCloseTask}>
+        <X />
+      </button>
       <input
         className="border-none shadow-inner py-2 text-left ring-0 focus:ring-0 focus:outline-none"
         value={currentTask.name}
@@ -129,7 +138,10 @@ export function TaskDetails({ className }: { className?: string }) {
           </PopoverContent>
         </Popover>
       </div>
-      <div></div>
+      <div className="flex gap-4 items-center">
+        <span>Tags:</span>
+        <TagSelect taskSelected={task} />
+      </div>
       <div>
         <Subtask />
       </div>

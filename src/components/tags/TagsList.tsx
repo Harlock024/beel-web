@@ -14,7 +14,7 @@ export function TagsList() {
           return (
             <div
               style={{ backgroundColor: tag.color, color: textColor }}
-              className="flex items-center justify-center px-3 py-1 text-sm font-medium rounded-md  transition-colors"
+              className="flex items-center justify-center px-3 py-1 text-sm font-medium rounded-md  transition-colors "
             >
               {tag.name}
             </div>

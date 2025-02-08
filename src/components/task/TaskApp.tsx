@@ -1,5 +1,6 @@
 import useListStore from "../list/store/listStore";
 import { Sidebar } from "../sidebar/sidebar";
+import { StickerWall } from "../stickyWall/StickerWall";
 import { Toaster } from "../ui/toaster";
 import { useTaskStore } from "./store/TaskStore";
 import { TaskDetails } from "./TaskDetails";
@@ -13,16 +14,31 @@ export function TaskApp() {
   const [activeView, setActiveView] = useState<string>("today");
   const renderContent = () => {
     switch (activeView) {
-      case "dailys":
-        return <TaskList className="flex-1 overflow-y-auto" />;
+      case "all task":
+        return (
+          <>
+            <TaskForm className="w-full border" />
+            <TaskList className="flex-1 overflow-y-auto" />
+          </>
+        );
       case "today":
-        return <TodayTask className="flex-1 overflow-y-auto" />;
+        return (
+          <>
+            <TaskForm className="w-full border" />
+            <TodayTask className="flex-1 overflow-y-auto" />
+          </>
+        );
       case "upcoming":
-        return <UpcomingTask />;
+        return (
+          <>
+            <TaskForm className="w-full border" />
+            <UpcomingTask />
+          </>
+        );
       case "calendar":
         return <div>Calendar View</div>;
       case "sticky-wall":
-        return <div>Sticky Wall View</div>;
+        return <StickerWall />;
       default:
         return <TaskList className="flex-1 overflow-y-auto" />;
     }
@@ -40,7 +56,6 @@ export function TaskApp() {
             task ? "w-[100%]" : "w-full"
           } transition-all duration-300 ease-out`}
         >
-          <TaskForm className="w-full border" />
           {renderContent()}
         </div>
         {task && (

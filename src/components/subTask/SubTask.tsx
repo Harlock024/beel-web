@@ -7,7 +7,7 @@ import { Label } from "../ui/label";
 import { SubTaskCard } from "./SubTaskCard";
 
 export function Subtask() {
-  const { addSubTask } = useSubtaskStore();
+  const { addSubTask, deleteSubtask } = useSubtaskStore();
   const { task } = useTaskStore();
   const nameRef = useRef<HTMLInputElement>(null);
   const [doneSubtask, setDoneSubtask] = useState(false);
@@ -15,6 +15,11 @@ export function Subtask() {
   function handleDoneSubtask() {
     setDoneSubtask(!doneSubtask);
   }
+
+  function handleDeleteSubtask(subtask: Subtask) {
+    deleteSubtask(task!, subtask);
+  }
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     const subTaskName = nameRef.current?.value;
@@ -45,7 +50,9 @@ export function Subtask() {
       </form>
       <div className="mt-4">
         {task?.subTasks?.map((subtask) => {
-          return <SubTaskCard subtask={subtask} />;
+          return (
+            <SubTaskCard subtask={subtask} onDelete={handleDeleteSubtask} />
+          );
         })}
       </div>
     </div>

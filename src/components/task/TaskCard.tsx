@@ -1,59 +1,77 @@
-import { Task } from "@/types/task";
-import { Card, CardContent, CardHeader } from "../ui/card";
-import { useTaskStore } from "./store/TaskStore";
-import { useState } from "react";
-import { ChevronRight, CalendarX } from "lucide-react";
-import { Button } from "../ui/button";
+import type { Task } from "@/types/task";
 import { Label } from "@/components/ui/label";
-import { TaskDetails } from "./TaskDetails";
+import { Calendar, Hash, ChevronRight } from "lucide-react";
 import { format } from "date-fns";
 import useListStore from "../list/store/listStore";
+import { Badge } from "@/components/ui/badge";
+import { Checkbox } from "@/components/ui/checkbox";
+import { useState } from "react";
+import { useTaskStore } from "./store/TaskStore";
 
 export function TaskCard({ task }: { task: Task }) {
   const [doneTask, setDoneTask] = useState(false);
-  const { getTask } = useTaskStore();
   const { lists } = useListStore();
+  const { getTask } = useTaskStore();
   const list = lists.find((list) => list.id === task.listId);
 
-  function handleDoneTask() {
+  function handleDoneTask(e: React.MouseEvent) {
+    e.stopPropagation(); // Previene que el click del checkbox active el detalle
     setDoneTask(!doneTask);
   }
+
   function handleTaskClick() {
     if (!task.id) return;
     getTask(task.id);
-    console.log("task card ", task.id);
   }
+
   return (
-    <div
-      key={task.id}
-      className="flex px-4  py-2 gap-2 justify-center items-center "
+    <button
+      onClick={handleTaskClick}
+      className="w-full text-left group flex items-center gap-4 p-4 hover:bg-gray-50 rounded-lg transition-colors"
     >
-      <button className="flex w-full " onClick={handleTaskClick}>
-        <div className="flex flex-col w-full">
-          <div className="flex gap-2 py-2 ">
-            <input onChange={handleDoneTask} type="checkbox" />
-            <Label
-              className={
-                doneTask ? `line-through text-gray-300 ` : `font-semibold `
-              }
+      <div onClick={handleDoneTask} className="cursor-pointer">
+        <Checkbox
+          id={`task-${task.id}`}
+          className="h-5 w-5"
+          checked={doneTask}
+        />
+      </div>
+
+      <div className="flex-1 flex items-center gap-6">
+        <Label
+          htmlFor={`task-${task.id}`}
+          className={`font-medium cursor-pointer ${doneTask ? "line-through text-gray-400" : "text-gray-900"}`}
+        >
+          {task?.name}
+        </Label>
+
+        <div className="flex items-center gap-6 text-sm text-gray-500">
+          {task?.dueDate && (
+            <div className="flex items-center gap-2">
+              <Calendar className="h-4 w-4" />
+              <span>{format(task.dueDate, "dd-MM-yy")}</span>
+            </div>
+          )}
+
+          {task?.subTasks?.length! > 0 && (
+            <div className="flex items-center gap-2 bg-gray-100 px-2 py-1 rounded">
+              <Hash className="h-3 w-3" />
+              <span>{task.subTasks!.length}</span>
+              <span>Subtacks</span>
+            </div>
+          )}
+          {list && (
+            <Badge
+              variant="secondary"
+              className="bg-red-100 text-red-600 hover:bg-red-100"
             >
-              {task?.name}
-            </Label>
-          </div>
-          <div className="flex  items-center justify-evenly font-semibold text-gray-600 ml-5 ">
-            {task?.dueDate && (
-              <div className="flex items-center gap-2">
-                <CalendarX className="h-5 w-5" />
-                <p className="flex space-x-10 ">
-                  {format(task!.dueDate!, "dd/MM/yyyy")}
-                </p>
-              </div>
-            )}
-            {list && <div className="flex items-center">{list.name}</div>}
-          </div>
+              {list.name}
+            </Badge>
+          )}
         </div>
-        <ChevronRight />
-      </button>
-    </div>
+      </div>
+
+      <ChevronRight className="h-5 w-5 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+    </button>
   );
 }

@@ -4,6 +4,7 @@ import {
   Calendar,
   Clock,
   StickyNote,
+  List,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -17,10 +18,10 @@ export function SidebarTask({
       <h1 className="font-semibold text-lg">Tasks</h1>
       <div
         className="flex items-center gap-2 h-1/2 cursor-pointer"
-        onClick={() => onMenuClick("dailys")}
+        onClick={() => onMenuClick("all task")}
       >
-        <Clock className="h-5 w-5" />
-        Dailys
+        <List className="h-5 w-5" />
+        All task
       </div>
       <div
         className="flex items-center gap-2 h-1/2 cursor-pointer"

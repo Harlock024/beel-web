@@ -5,6 +5,7 @@ type TaskStore = {
   tasks: Task[];
   task: Task | undefined;
   addTask: (task: Task) => void;
+  closeTask: () => void;
   getTask: (id: number) => void;
   removeTask: (id: number) => void;
   editTask: (task: Task) => void;
@@ -16,6 +17,7 @@ export const useTaskStore = create<TaskStore>((set) => ({
     const task = useTaskStore.getState().tasks.find((task) => task.id === id);
     set({ task });
   },
+
   addTask: (task) => set((state) => ({ tasks: [...state.tasks, task] })),
   removeTask: (id) =>
     set((state) => ({
@@ -27,4 +29,7 @@ export const useTaskStore = create<TaskStore>((set) => ({
         task.id === updatedTask.id ? updatedTask : task,
       ),
     })),
+  closeTask: () => {
+    set({ task: undefined });
+  },
 }));

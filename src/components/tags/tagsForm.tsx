@@ -5,12 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Popover } from "@radix-ui/react-popover";
 import { PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Tag } from "@/types/tags";
-import {
-  BlockPickerProps,
-  BlockPicker,
-  Color,
-  SketchPicker,
-} from "react-color";
+import { BlockPicker } from "react-color";
 
 export function TagsForm() {
   const { addTag } = useTags();
@@ -28,7 +23,6 @@ export function TagsForm() {
     }
     nameTag.current!.value = "";
   }
-
   return (
     <Popover>
       <PopoverTrigger asChild>
