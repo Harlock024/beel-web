@@ -16,6 +16,7 @@ export function TagsForm() {
     e.preventDefault();
     if (nameTag.current?.value && color) {
       const newTag: Tag = {
+        id: Math.floor(Math.random() * 1000),
         name: nameTag.current.value,
         color: color,
       };
@@ -40,14 +41,12 @@ export function TagsForm() {
             className="border-none placeholder:font-normal font-normal ring-0 focus:ring-0 focus:outline-none flex-1 ml-2 bg-transparent"
           />
           <Popover>
-            <PopoverTrigger>
+            <PopoverTrigger asChild>
               <button
                 type="button"
-                className="rounded-md p-1"
+                className="rounded-md p-1 size-6"
                 style={{ backgroundColor: color }}
-              >
-                color
-              </button>
+              ></button>
             </PopoverTrigger>
             <PopoverContent className="flex w-auto justify-center p-0 mt-2 ">
               <BlockPicker color={color} onChange={(e) => setColor(e.hex)} />

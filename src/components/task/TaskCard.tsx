@@ -14,8 +14,8 @@ export function TaskCard({ task }: { task: Task }) {
   const { getTask } = useTaskStore();
   const list = lists.find((list) => list.id === task.listId);
 
-  function handleDoneTask(e: React.MouseEvent) {
-    e.stopPropagation(); // Previene que el click del checkbox active el detalle
+  function handleDoneTask(e: React.FormEvent) {
+    e.preventDefault();
     setDoneTask(!doneTask);
   }
 
@@ -29,14 +29,12 @@ export function TaskCard({ task }: { task: Task }) {
       onClick={handleTaskClick}
       className="w-full text-left group flex items-center gap-4 p-4 hover:bg-gray-50 rounded-lg transition-colors"
     >
-      <div onClick={handleDoneTask} className="cursor-pointer">
-        <Checkbox
-          id={`task-${task.id}`}
-          className="h-5 w-5"
-          checked={doneTask}
-        />
-      </div>
-
+      <Checkbox
+        id={`task-${task.id}`}
+        className="h-5 w-5"
+        checked={doneTask}
+        onClick={handleDoneTask}
+      />
       <div className="flex-1 flex items-center gap-6">
         <Label
           htmlFor={`task-${task.id}`}
@@ -70,7 +68,6 @@ export function TaskCard({ task }: { task: Task }) {
           )}
         </div>
       </div>
-
       <ChevronRight className="h-5 w-5 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity" />
     </button>
   );

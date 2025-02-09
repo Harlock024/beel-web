@@ -50,12 +50,13 @@ export function TagSelect({
         })}
 
         <Popover>
-          <PopoverTrigger>
+          <PopoverTrigger asChild>
             <Button className="flex hover:text-white  bg-gray-200 p-1 text-black rounded-md items-center gap-2">
               <Plus className="w-4 h-4" />
               Add Tag
             </Button>
           </PopoverTrigger>
+
           <PopoverContent>
             <div className="flex flex-wrap gap-2">
               {tags.map((tag) => {

@@ -17,21 +17,21 @@ export function TaskApp() {
       case "all task":
         return (
           <>
-            <TaskForm className="w-full border" />
+            <TaskForm className="w-full " />
             <TaskList className="flex-1 overflow-y-auto" />
           </>
         );
       case "today":
         return (
           <>
-            <TaskForm className="w-full border" />
+            <TaskForm className="w-full " />
             <TodayTask className="flex-1 overflow-y-auto" />
           </>
         );
       case "upcoming":
         return (
           <>
-            <TaskForm className="w-full border" />
+            <TaskForm className="w-full " />
             <UpcomingTask />
           </>
         );
@@ -49,7 +49,6 @@ export function TaskApp() {
         className="w-60 min-w-[260px] overflow-y-auto flex-shrink-0"
         onMenuClick={setActiveView}
       />
-
       <div className="flex flex-1 overflow-hidden">
         <div
           className={`flex flex-col ${
