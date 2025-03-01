@@ -16,7 +16,6 @@ export function TagsForm() {
     e.preventDefault();
     if (nameTag.current?.value && color) {
       const newTag: Tag = {
-        id: Math.floor(Math.random() * 1000),
         name: nameTag.current.value,
         color: color,
       };

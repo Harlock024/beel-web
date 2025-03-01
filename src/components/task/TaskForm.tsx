@@ -3,7 +3,12 @@ import { Task } from "@/types/task";
 import { useTaskStore } from "./store/TaskStore";
 import { useToast } from "@/hooks/use-toast";
 import { Plus } from "lucide-react";
-export function TaskForm({ className }: { className?: string }) {
+
+interface TaskFormProp {
+  className: string;
+}
+
+export function TaskForm({ className }: TaskFormProp) {
   const { addTask } = useTaskStore();
   const { toast } = useToast();
   const [taskName, setTaskName] = useState("");

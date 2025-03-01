@@ -47,8 +47,10 @@ export function Sidebar({
           variant="ghost"
           className="w-full justify-start text-sm text-red-500 hover:text-red-600 hover:bg-red-100"
         >
-          <LogOut className="mr-2 h-4 w-4" />
-          <span className="truncate">Sign out</span>
+          <a href="/auth">
+            <LogOut className="mr-2 h-4 w-4" />
+            <span className="truncate">Sign out</span>
+          </a>
         </Button>
       </div>
     </div>

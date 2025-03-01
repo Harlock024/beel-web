@@ -17,7 +17,6 @@ export const useTaskStore = create<TaskStore>((set) => ({
     const task = useTaskStore.getState().tasks.find((task) => task.id === id);
     set({ task });
   },
-
   addTask: (task) => set((state) => ({ tasks: [...state.tasks, task] })),
   removeTask: (id) =>
     set((state) => ({
@@ -26,7 +25,7 @@ export const useTaskStore = create<TaskStore>((set) => ({
   editTask: (updatedTask) =>
     set((state) => ({
       tasks: state.tasks.map((task) =>
-        task.id === updatedTask.id ? updatedTask : task,
+        task.id === updatedTask.id ? updatedTask : task
       ),
     })),
   closeTask: () => {

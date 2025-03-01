@@ -17,7 +17,6 @@ export function TaskApp() {
       case "all task":
         return (
           <>
-            <TaskForm className="w-full " />
             <TaskList className="flex-1 overflow-y-auto" />
           </>
         );
@@ -31,7 +30,6 @@ export function TaskApp() {
       case "upcoming":
         return (
           <>
-            <TaskForm className="w-full " />
             <UpcomingTask />
           </>
         );
@@ -58,7 +56,7 @@ export function TaskApp() {
           {renderContent()}
         </div>
         {task && (
-          <div className="w-[50%] overflow-y-auto transition-all duration-300 ease-in-out">
+          <div className="w-full overflow-y-auto transition-all duration-300 ease-in-out">
             <TaskDetails className="p-4" />
           </div>
         )}

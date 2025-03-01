@@ -11,7 +11,7 @@ import { Task } from "@/types/task";
 export function TagSelect({
   taskSelected,
 }: {
-  taskSelected: Task | undefined;
+  taskSelected?: Task | undefined;
 }) {
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const { tags, assignTagToTask, unassignTagFromTask } = useTagStore();
@@ -66,7 +66,7 @@ export function TagSelect({
                     key={tag.name}
                     style={{ backgroundColor: tag.color, color: textColor }}
                     onClick={() => handleTagSelect(tag)}
-                    disabled={taskSelected?.tags!.includes(tag)}
+                    disabled={taskSelected?.tags?.includes(tag)}
                     className={`flex items-center gap-2 p-2 hover:bg-gray-100 cursor-pointer`}
                   >
                     <span className="flex items-center justify-center px-3 py-1 w-f text-sm font-medium rounded-md  transition-colors">

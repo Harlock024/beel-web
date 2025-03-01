@@ -50,13 +50,14 @@ export function UpcomingTask() {
 
   return (
     <div>
-      <h1>
+      <h1 className=" flex  gap-2 text-3xl font-bold ">
         Upcoming Tasks
-        {filteredTasks.thisWeek.length +
-          filteredTasks.today.length +
-          filteredTasks.tomorrow.length}
+        <span>
+          {filteredTasks.thisWeek.length +
+            filteredTasks.today.length +
+            filteredTasks.tomorrow.length}
+        </span>
       </h1>
-
       <section>
         <h2>Today</h2>
         {filteredTasks.today.length > 0 ? (
@@ -69,7 +70,6 @@ export function UpcomingTask() {
           <p>No tasks for today</p>
         )}
       </section>
-
       <section>
         <h2>Tomorrow</h2>
         {filteredTasks.tomorrow.length > 0 ? (
