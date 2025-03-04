@@ -7,10 +7,12 @@ interface ListCardProps {
   isSelected: boolean;
   onClick: () => void;
 }
+
 export function ListCard({ list, isSelected, onClick }: ListCardProps) {
   return (
     <button
-      className="flex items-center w-full justify-between p-2 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer"
+      className={`flex items-center w-full justify-between p-2 rounded-lg transition-colors cursor-pointer
+        ${isSelected ? "bg-blue-500 text-white" : "hover:bg-gray-50 bg-white"}`} // Cambio de fondo cuando está seleccionado
       onClick={onClick}
     >
       <div className="flex items-center gap-2 flex-1">

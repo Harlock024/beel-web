@@ -1,9 +1,12 @@
 import { create } from "zustand";
 import { Task } from "@/types/task";
+import { persist, devtools } from "zustand/middleware";
 
 type TaskStore = {
   tasks: Task[];
   task: Task | undefined;
+  getTasks: (user_id: number) => void;
+  getTaskByListId: (id: number) => void;
   addTask: (task: Task) => void;
   closeTask: () => void;
   getTask: (id: number) => void;
@@ -13,6 +16,14 @@ type TaskStore = {
 export const useTaskStore = create<TaskStore>((set) => ({
   tasks: [],
   task: undefined,
+  getTaskByListId: (id) => {
+    const tasks = useTaskStore
+      .getState()
+      .tasks.filter((task) => task.listId === id);
+    set({ tasks });
+  },
+  getTasks: (id) => {},
+
   getTask: (id) => {
     const task = useTaskStore.getState().tasks.find((task) => task.id === id);
     set({ task });

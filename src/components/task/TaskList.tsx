@@ -5,12 +5,13 @@ import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { TaskForm } from "./TaskForm";
 
-export function TaskList({ className }: { className?: string }) {
+export function TaskList() {
   const { tasks } = useTaskStore();
   const { isFiltered, filteredTasks } = useFilterStore();
   const tasksToShow = isFiltered ? filteredTasks : tasks;
+
   return (
-    <div className={className}>
+    <div className="flex-1 overflow-y-auto">
       <h1 className="text-3xl font-bold">All tasks</h1>
       <TaskForm className="w-full" />
       <ScrollArea className="w-full">

@@ -13,8 +13,8 @@ type Store = {
   deleteList: (id: number) => void;
   deselectList: () => void;
 };
-const useListStore = create<Store>((set) => ({
-  lists: [{ id: 1, name: "personal", numTaskAsigned: 0, color: "" }],
+export const useListStore = create<Store>((set) => ({
+  lists: [{ id: 1, name: "personal", numTaskAsigned: 0, color: "", tasks: [] }],
   listId: null,
   createList: (list) => set((state) => ({ lists: [...state.lists, list] })),
   updateList(id, updatedList) {

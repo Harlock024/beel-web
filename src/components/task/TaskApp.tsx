@@ -8,18 +8,30 @@ import { TaskForm } from "./TaskForm";
 import { TaskList } from "./TaskList";
 import { TodayTask } from "./todayTask";
 import { UpcomingTask } from "./UpcommingTask";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
 export function TaskApp() {
   const { task } = useTaskStore();
+  const { listId, lists } = useListStore();
   const [activeView, setActiveView] = useState<string>("today");
+
+  useEffect(() => {
+    if (listId) {
+      setActiveView("all task");
+    } else {
+      setActiveView("today");
+    }
+  }, [listId]);
+
+  useEffect(() => {
+    if (listId) {
+    }
+  }, [task]);
+
   const renderContent = () => {
     switch (activeView) {
       case "all task":
-        return (
-          <>
-            <TaskList className="flex-1 overflow-y-auto" />
-          </>
-        );
+        return <TaskList />;
       case "today":
         return (
           <>
@@ -30,6 +42,7 @@ export function TaskApp() {
       case "upcoming":
         return (
           <>
+            <TaskForm className="w-full" />
             <UpcomingTask />
           </>
         );
@@ -38,9 +51,10 @@ export function TaskApp() {
       case "sticky-wall":
         return <StickerWall />;
       default:
-        return <TaskList className="flex-1 overflow-y-auto" />;
+        return <TaskList />;
     }
   };
+
   return (
     <div className="flex h-screen w-screen min-h-[600px] min-w-[1024px] overflow-auto bg-gray-100">
       <Sidebar

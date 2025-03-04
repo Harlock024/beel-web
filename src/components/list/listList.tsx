@@ -5,24 +5,22 @@ import { useFilterStore } from "../task/store/FilterStore";
 import { useEffect } from "react";
 
 export function ListList() {
-  const { lists, selectedListId, deselectList, selectList } = useListStore();
+  const { lists, listId, getListID } = useListStore();
   const { resetFilter, filterByListId } = useFilterStore();
 
   useEffect(() => {
-    if (selectedListId !== null) {
-      filterByListId(selectedListId);
+    if (listId !== null) {
+      filterByListId(listId);
     } else {
       resetFilter();
     }
-    filterByListId;
-  }, [selectedListId, , resetFilter]);
+  }, [listId, resetFilter, filterByListId]);
 
   const handleListClick = (id: number) => {
-    if (selectedListId === id) {
-      deselectList();
-      resetFilter();
+    if (listId === id) {
+      return; // No hacer nada si ya está seleccionada
     } else {
-      selectList(id);
+      getListID(id);
       filterByListId(id);
     }
   };
@@ -34,7 +32,7 @@ export function ListList() {
           <ListCard
             key={list.id}
             list={list}
-            isSelected={selectedListId === list.id}
+            isSelected={listId === list.id}
             onClick={() => handleListClick(list.id)}
           />
         ))}

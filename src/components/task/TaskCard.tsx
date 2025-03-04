@@ -12,6 +12,7 @@ export function TaskCard({ task }: { task: Task }) {
   const [doneTask, setDoneTask] = useState(false);
   const { lists } = useListStore();
   const { getTask } = useTaskStore();
+
   const list = lists.find((list) => list.id === task.listId);
 
   function handleDoneTask(e: React.FormEvent) {
@@ -40,7 +41,9 @@ export function TaskCard({ task }: { task: Task }) {
         <div className="flex-1 flex items-center gap-6">
           <Label
             htmlFor={`task-${task.id}`}
-            className={`font-medium cursor-pointer ${doneTask ? "line-through text-gray-400" : "text-gray-900"}`}
+            className={`font-medium cursor-pointer ${
+              doneTask ? "line-through text-gray-400" : "text-gray-900"
+            }`}
           >
             {task?.name}
           </Label>

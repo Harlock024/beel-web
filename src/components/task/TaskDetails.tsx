@@ -39,7 +39,7 @@ export function TaskDetails({ className }: { className?: string }) {
       name: currentTask.name,
       description: currentTask.description || undefined,
       dueDate: currentTask.dueDate || undefined,
-      listId: currentTask.listId || undefined,
+      listId: currentTask.listId!,
     };
     editTask(updatedTask);
     toast({

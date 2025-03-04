@@ -5,7 +5,7 @@ export interface Task {
   id?: number;
   name: string;
   description?: string;
-  listId?: number;
+  listId: number;
   dueDate?: Date;
   tags?: Tag[];
   subTasks?: Subtask[];

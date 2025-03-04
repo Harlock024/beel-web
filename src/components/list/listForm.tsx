@@ -2,6 +2,7 @@ import { Input } from "../ui/input";
 import { FormEvent, useRef, useState } from "react";
 import { Plus } from "lucide-react";
 import useListStore from "./store/listStore";
+import { List } from "@/types/list";
 
 export function ListForm() {
   const nameRef = useRef<HTMLInputElement>(null);
@@ -9,18 +10,17 @@ export function ListForm() {
 
   function handleCreateList(e: FormEvent) {
     e.preventDefault();
-
     if (nameRef.current?.value) {
-      const newList = {
+      const newList: List = {
         id: lists.length + 1,
         name: nameRef.current.value,
         numTaskAsigned: 0,
+        color: "",
       };
       createList(newList);
     }
     nameRef!.current!.value = "";
   }
-
   return (
     <form
       onSubmit={handleCreateList}
