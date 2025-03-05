@@ -12,48 +12,7 @@ import { useState, useEffect } from "react";
 
 export function TaskApp() {
   const { task } = useTaskStore();
-  const { listId, lists } = useListStore();
   const [activeView, setActiveView] = useState<string>("today");
-
-  useEffect(() => {
-    if (listId) {
-      setActiveView("all task");
-    } else {
-      setActiveView("today");
-    }
-  }, [listId]);
-
-  useEffect(() => {
-    if (listId) {
-    }
-  }, [task]);
-
-  const renderContent = () => {
-    switch (activeView) {
-      case "all task":
-        return <TaskList />;
-      case "today":
-        return (
-          <>
-            <TaskForm className="w-full " />
-            <TodayTask className="flex-1 overflow-y-auto" />
-          </>
-        );
-      case "upcoming":
-        return (
-          <>
-            <TaskForm className="w-full" />
-            <UpcomingTask />
-          </>
-        );
-      case "calendar":
-        return <div>Calendar View</div>;
-      case "sticky-wall":
-        return <StickerWall />;
-      default:
-        return <TaskList />;
-    }
-  };
 
   return (
     <div className="flex h-screen w-screen min-h-[600px] min-w-[1024px] overflow-auto bg-gray-100">
@@ -67,7 +26,7 @@ export function TaskApp() {
             task ? "w-[100%]" : "w-full"
           } transition-all duration-300 ease-out`}
         >
-          {renderContent()}
+          <TaskList />
         </div>
         {task && (
           <div className="w-full overflow-y-auto transition-all duration-300 ease-in-out">

@@ -1,21 +1,20 @@
 import { create } from "zustand";
 import { List } from "@/types/list";
-import { ViteID } from "node_modules/astro/dist/core/build/types";
+import { useTaskStore } from "@/components/task/store/TaskStore";
+import { useFilterStore } from "@/components/task/store/FilterStore";
 
 type Store = {
   lists: List[];
-  listId: number | null;
-  getListID: (id: number) => void;
+  list: List | null;
+  getList: (id: number) => void;
   createList: (list: List) => void;
-  numofTasksAsigned: (id: number) => void;
-  decrementNumofTasksAsigned: (id: number) => void;
+  countedTask: (list_id: number) => void;
   updateList: (id: number, updatedlist: Partial<List>) => void;
   deleteList: (id: number) => void;
-  deselectList: () => void;
 };
 export const useListStore = create<Store>((set) => ({
   lists: [{ id: 1, name: "personal", numTaskAsigned: 0, color: "", tasks: [] }],
-  listId: null,
+  list: null,
   createList: (list) => set((state) => ({ lists: [...state.lists, list] })),
   updateList(id, updatedList) {
     set((state) => ({
@@ -24,32 +23,32 @@ export const useListStore = create<Store>((set) => ({
       ),
     }));
   },
-
-  numofTasksAsigned: (id) =>
+  countedTask: (list_id: number) => {
+    const taskList = useTaskStore.getState().tasks;
+    const taskCount = taskList.filter((task) => task.listId === list_id);
     set((state) => ({
       lists: state.lists.map((list) =>
-        list.id === id
-          ? { ...list, numTaskAsigned: list.numTaskAsigned + 1 }
+        list.id === list_id
+          ? { ...list, numTaskAsigned: taskCount.length }
           : list
       ),
-    })),
-  decrementNumofTasksAsigned: (id) =>
-    set((state) => ({
-      lists: state.lists.map((list) =>
-        list.id === id
-          ? { ...list, numTaskAsigned: list.numTaskAsigned - 1 }
-          : list
-      ),
-    })),
+    }));
+  },
   deleteList: (id) =>
     set((state) => ({
       lists: state.lists.filter((list) => list.id !== id),
     })),
-  getListID: (id: number) => {
-    set({ listId: id });
-  },
-  deselectList: () => {
-    set({ listId: null });
+  getList: (id: number) => {
+    set((state) => {
+      const selectedList = state.lists.find((list) => list.id === id) || null;
+      if (selectedList) {
+        let taskList = useTaskStore
+          .getState()
+          .tasks.filter((task) => task.listId === id);
+        useFilterStore.setState({ filteredTasks: taskList });
+      }
+      return { list: selectedList };
+    });
   },
 }));
 export default useListStore;

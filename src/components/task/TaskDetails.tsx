@@ -15,11 +15,12 @@ import {
 import { cn } from "@/lib/utils";
 import { Subtask } from "../subTask/SubTask";
 import { TagSelect } from "../tags/tagSelect";
+import { useFilterStore } from "../task/store/FilterStore";
 
 export function TaskDetails({ className }: { className?: string }) {
   const { task, editTask, removeTask, closeTask } = useTaskStore();
   const { toast } = useToast();
-  const { lists, numofTasksAsigned, decrementNumofTasksAsigned } = useList();
+  const { lists, list, countedTask } = useList();
   const [currentTask, setCurrentTask] = useState<Task | undefined>(task);
 
   useEffect(() => {
@@ -42,6 +43,9 @@ export function TaskDetails({ className }: { className?: string }) {
       listId: currentTask.listId!,
     };
     editTask(updatedTask);
+    countedTask(currentTask.listId!);
+    countedTask(updatedTask.listId!);
+    useFilterStore.getState().filterByListId(list!.id);
     toast({
       variant: "default",
       description: "Task updated",
@@ -52,7 +56,6 @@ export function TaskDetails({ className }: { className?: string }) {
     e.preventDefault();
     if (!task?.id) return;
     if (task.listId) {
-      decrementNumofTasksAsigned(task.listId);
     }
     removeTask(task.id);
     setCurrentTask(undefined);
@@ -64,14 +67,13 @@ export function TaskDetails({ className }: { className?: string }) {
       dueDate: date,
     }));
   };
-
   const handleListChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newListId = parseInt(e.target.value);
 
     if (currentTask?.listId) {
-      decrementNumofTasksAsigned(currentTask.listId);
+      countedTask(currentTask.listId);
     }
-    numofTasksAsigned(newListId);
+    countedTask(newListId);
     setCurrentTask((prevTask) => ({
       ...prevTask!,
       listId: newListId,
@@ -106,7 +108,6 @@ export function TaskDetails({ className }: { className?: string }) {
           onChange={handleListChange}
           className="border rounded p-1"
         >
-          <option value="">Select a list</option>
           {lists.map((list) => (
             <option key={list.id} value={list.id}>
               {list.name}

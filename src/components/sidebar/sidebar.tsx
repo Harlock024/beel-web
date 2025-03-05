@@ -1,6 +1,6 @@
 import React from "react";
-import { MenuList } from "./sidebarList";
-import { MenuTags } from "./sidebarTags";
+import { SidebarList } from "./sidebarList";
+import { SidebarTags } from "./sidebarTags";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Settings, LogOut } from "lucide-react";
@@ -18,7 +18,7 @@ export function Sidebar({
     <div
       className={cn(
         "flex flex-col h-full bg-background overflow-y-hidden overflow-x-hidden",
-        className,
+        className
       )}
     >
       <div className="p-4 flex-shrink-0">
@@ -27,9 +27,9 @@ export function Sidebar({
       <nav className="flex-1 px-2 py-4 space-y-4 overflow-y-auto">
         <SidebarTask onMenuClick={onMenuClick!} />
         <Separator className="my-2" />
-        <MenuList />
+        <SidebarList />
         <Separator className="my-2" />
-        <MenuTags />
+        <SidebarTags />
       </nav>
       <div className="p-4 flex-shrink-0">
         <Separator className="mb-2" />

@@ -2,10 +2,9 @@
 import Layout from "../layouts/Layout.astro";
 
 import { TaskApp } from "@/components/task/TaskApp";
-import { LoginForm } from "../components/login/login-form";
 
 ---
 
 <Layout>
-    <TaskApp client:only />
+    <TaskApp client:load />
 </Layout>
