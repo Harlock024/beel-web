@@ -1,39 +1,36 @@
 import { ScrollArea } from "../ui/scroll-area";
 import { ListCard } from "./listCard";
 import useListStore from "./store/listStore";
-import { useFilterStore } from "../task/store/FilterStore";
 import { useEffect } from "react";
+import { useFilterStore } from "../task/store/FilterStore";
 
 export function ListList() {
-  const { lists, listId, getListID } = useListStore();
+  const { lists, list, getList } = useListStore();
   const { resetFilter, filterByListId } = useFilterStore();
 
   useEffect(() => {
-    if (listId !== null) {
-      filterByListId(listId);
+    if (list) {
+      filterByListId(list.id);
     } else {
       resetFilter();
     }
-  }, [listId, resetFilter, filterByListId]);
+  }, [list, filterByListId, resetFilter]);
 
   const handleListClick = (id: number) => {
-    if (listId === id) {
-      return; // No hacer nada si ya está seleccionada
-    } else {
-      getListID(id);
-      filterByListId(id);
+    if (list?.id === id) {
+      return;
     }
+    getList(id);
   };
-
   return (
     <div className="flex flex-col h-auto box-border font-semibold">
       <ScrollArea className="w-full">
-        {lists.map((list) => (
+        {lists.map((listItem) => (
           <ListCard
-            key={list.id}
-            list={list}
-            isSelected={listId === list.id}
-            onClick={() => handleListClick(list.id)}
+            key={listItem.id}
+            list={listItem}
+            isSelected={list?.id === listItem.id}
+            onClick={() => handleListClick(listItem.id)}
           />
         ))}
       </ScrollArea>

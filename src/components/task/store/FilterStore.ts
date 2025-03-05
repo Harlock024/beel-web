@@ -2,28 +2,21 @@ import { create } from "zustand";
 import { Task } from "@/types/task";
 import { useTaskStore } from "./TaskStore";
 
-// enum Isfiltered {
-//   ALL = "all_task",
-//   TODAY = "today",
-//   TOMORROW = "tomorrow",
-//   WEEK = "week",
-// }
-
 type FilterStore = {
   filteredTasks: Task[];
-  isFiltered?: boolean | null;
+  isFiltered: boolean;
   filterByListId: (id: number) => void;
   resetFilter: () => void;
 };
 
 export const useFilterStore = create<FilterStore>((set) => ({
   filteredTasks: [],
-  isFiltered: null,
+  isFiltered: false,
   filterByListId: (id) => {
     const tasks = useTaskStore
       .getState()
       .tasks.filter((task) => task.listId === id);
-    set({ filteredTasks: tasks, isFiltered: true || false });
+    set({ filteredTasks: tasks, isFiltered: true });
   },
-  resetFilter: () => set({ isFiltered: false }),
+  resetFilter: () => set({ filteredTasks: [], isFiltered: false }),
 }));

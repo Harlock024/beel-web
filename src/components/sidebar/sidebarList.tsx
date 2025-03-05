@@ -1,7 +1,7 @@
 import { ListForm } from "../list/listForm";
 import { ListList } from "../list/listList";
 
-export function MenuList() {
+export function SidebarList() {
   return (
     <div className="flex flex-col font-semibold ">
       <h1 className="text-sm font-semibold">Lists</h1>

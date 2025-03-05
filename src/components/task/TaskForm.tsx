@@ -4,6 +4,7 @@ import { useTaskStore } from "./store/TaskStore";
 import { useToast } from "@/hooks/use-toast";
 import { Plus } from "lucide-react";
 import { useListStore } from "../list/store/listStore";
+import { useFilterStore } from "./store/FilterStore";
 
 interface TaskFormProp {
   className: string;
@@ -11,7 +12,7 @@ interface TaskFormProp {
 
 export function TaskForm({ className }: TaskFormProp) {
   const { addTask } = useTaskStore();
-  const { listId } = useListStore();
+  const { list, getList, countedTask } = useListStore();
   const { toast } = useToast();
   const [taskName, setTaskName] = useState("");
 
@@ -24,15 +25,14 @@ export function TaskForm({ className }: TaskFormProp) {
       });
     }
 
-    if (taskName && listId !== null) {
+    if (taskName && list?.id !== null) {
       const newTask: Task = {
         id: Math.floor(Math.random() * 1000),
         name: taskName,
-        listId: listId,
+        listId: list!.id,
       };
-
       addTask(newTask);
-
+      useFilterStore.getState().filterByListId(list!.id);
       setTaskName("");
     }
   }

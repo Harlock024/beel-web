@@ -1,6 +1,6 @@
 import { List } from "@/types/list";
 import { Label } from "../ui/label";
-import useList from "./store/listStore";
+import { useListStore } from "./store/listStore";
 
 interface ListCardProps {
   list: List;
@@ -12,7 +12,7 @@ export function ListCard({ list, isSelected, onClick }: ListCardProps) {
   return (
     <button
       className={`flex items-center w-full justify-between p-2 rounded-lg transition-colors cursor-pointer
-        ${isSelected ? "bg-blue-500 text-white" : "hover:bg-gray-50 bg-white"}`} // Cambio de fondo cuando está seleccionado
+        ${isSelected ? "bg-blue-500 text-white" : "hover:bg-gray-50 bg-white"}`}
       onClick={onClick}
     >
       <div className="flex items-center gap-2 flex-1">
