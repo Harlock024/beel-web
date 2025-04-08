@@ -5,7 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Popover } from "@radix-ui/react-popover";
 import { PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Tag } from "@/types/tags";
-import { BlockPicker } from "react-color";
+import pkg from "react-color";
+const { BlockPicker } = pkg;
 
 export function TagsForm() {
   const { addTag } = useTags();
