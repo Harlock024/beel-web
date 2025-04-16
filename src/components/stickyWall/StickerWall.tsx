@@ -3,6 +3,7 @@ import { type FormEvent, useState } from "react";
 import { StickerCard } from "./StickerCard";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Plus } from "lucide-react";
+import { v4 as uuidv4 } from "uuid";
 
 const STICKER_COLORS = [
   "#fef9c3", // Pastel yellow
@@ -17,7 +18,7 @@ export function StickerWall() {
   function addSticker(e: FormEvent) {
     e.preventDefault();
     const newSticker: Sticker = {
-      id: Math.floor(Math.random() * 1000),
+      id: uuidv4().toString(),
       title: "",
       description: "",
       color: STICKER_COLORS[stickers.length % STICKER_COLORS.length],
@@ -48,7 +49,7 @@ export function StickerWall() {
     );
   }
 
-  function deleteSticker(id: number) {
+  function deleteSticker(id: string) {
     setStickers((prev) => prev.filter((sticker) => sticker.id !== id));
   }
 

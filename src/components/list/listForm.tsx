@@ -1,8 +1,9 @@
 import { Input } from "../ui/input";
 import { FormEvent, useRef, useState } from "react";
 import { Plus } from "lucide-react";
-import useListStore from "./store/listStore";
+import useListStore from "@/stores/listStore";
 import { List } from "@/types/list";
+import { v4 as uuid } from "uuid";
 
 export function ListForm() {
   const nameRef = useRef<HTMLInputElement>(null);
@@ -12,9 +13,8 @@ export function ListForm() {
     e.preventDefault();
     if (nameRef.current?.value) {
       const newList: List = {
-        id: lists.length + 1,
+        id: uuid().toString(),
         name: nameRef.current.value,
-        numTaskAsigned: 0,
         color: "",
       };
       createList(newList);

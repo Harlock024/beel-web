@@ -1,10 +1,11 @@
 import { FormEvent, useState } from "react";
 import { Task } from "@/types/task";
-import { useTaskStore } from "./store/TaskStore";
+import { useTaskStore } from "@/stores/TaskStore";
 import { useToast } from "@/hooks/use-toast";
 import { Plus } from "lucide-react";
-import { useListStore } from "../list/store/listStore";
-import { useFilterStore } from "./store/FilterStore";
+import { useListStore } from "@/stores/listStore";
+import { useFilterStore } from "@/stores/FilterStore";
+import { v4 as uuidv4 } from "uuid";
 
 interface TaskFormProp {
   className: string;
@@ -27,16 +28,14 @@ export function TaskForm({ className }: TaskFormProp) {
 
     if (taskName && list?.id !== null) {
       const newTask: Task = {
-        id: Math.floor(Math.random() * 1000),
+        id: uuidv4().toString(),
         name: taskName,
-        listId: list!.id,
       };
       addTask(newTask);
       useFilterStore.getState().filterByListId(list!.id);
       setTaskName("");
     }
   }
-
   return (
     <div className={className}>
       <form onSubmit={handleAddTask} className="flex flex-col gap-4 ">

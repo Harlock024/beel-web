@@ -1,5 +1,5 @@
 export interface Subtask {
-  id?: number;
+  id?: string;
   name: string;
   state: boolean;
 }

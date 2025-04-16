@@ -5,7 +5,7 @@ import { useTaskStore } from "./TaskStore";
 type FilterStore = {
   filteredTasks: Task[];
   isFiltered: boolean;
-  filterByListId: (id: number) => void;
+  filterByListId: (id: string) => void;
   resetFilter: () => void;
 };
 

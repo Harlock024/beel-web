@@ -1,10 +1,10 @@
-import { useTaskStore } from "./store/TaskStore";
-import { useFilterStore } from "./store/FilterStore";
+import { useTaskStore } from "@/stores/TaskStore";
+import { useFilterStore } from "@/stores/FilterStore";
 import { TaskCard } from "./TaskCard";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { TaskForm } from "./TaskForm";
-import { useListStore } from "../list/store/listStore";
+import { useListStore } from "@/stores/listStore";
 import { useEffect } from "react";
 
 export function TaskList() {
@@ -18,14 +18,12 @@ export function TaskList() {
     <div className="flex-1 overflow-y-auto">
       <h1 className="text-3xl font-bold">{list?.name.toUpperCase()}</h1>
       <TaskForm className="w-full" />
-      <ScrollArea className="w-full">
-        {tasksToShow.map((task) => (
-          <>
-            <TaskCard task={task} key={task.id} />
-            <Separator />
-          </>
-        ))}
-      </ScrollArea>
+      {tasksToShow.map((task) => (
+        <div key={task.id}>
+          <TaskCard task={task} key={task.id} />
+          <Separator />
+        </div>
+      ))}
     </div>
   );
 }

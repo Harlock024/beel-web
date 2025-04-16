@@ -1,7 +1,7 @@
 import { Task } from "@/types/task";
-import { useSubtaskStore } from "../subTask/hook/useSubtask";
+import { useSubtaskStore } from "../../stores/useSubtask";
 import { FormEvent, useRef, useState } from "react";
-import { useTaskStore } from "../task/store/TaskStore";
+import { useTaskStore } from "@/stores/TaskStore";
 import { type Subtask } from "@/types/subTask";
 import { Label } from "../ui/label";
 import { SubTaskCard } from "./SubTaskCard";

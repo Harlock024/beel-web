@@ -1,20 +1,36 @@
 import { create } from "zustand";
 import { Task } from "@/types/task";
-import { persist, devtools } from "zustand/middleware";
-import useListStore from "@/components/list/store/listStore";
+import useListStore from "@/stores/listStore";
+
+import { v4 as uuidv4 } from "uuid";
+
 type TaskStore = {
   tasks: Task[];
   task: Task | undefined;
-  getTasks: (user_id: number) => void;
-  getTaskByListId: (id: number) => void;
+  getTasks: (user_id: string) => void;
+  getTaskByListId: (id: string) => void;
   addTask: (task: Task) => void;
   closeTask: () => void;
-  getTask: (id: number) => void;
-  removeTask: (id: number) => void;
+  getTask: (id: string) => void;
+  removeTask: (id: string) => void;
   editTask: (task: Task) => void;
 };
+
+const TaskID = uuidv4().toString();
+
 export const useTaskStore = create<TaskStore>((set) => ({
-  tasks: [],
+  tasks: [
+    {
+      id: TaskID,
+      name: "Task 1",
+      description: "Description for Task 1",
+      status: "pending",
+      listId: "1",
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
+  ],
+
   task: undefined,
   getTaskByListId: (id) => {
     const tasks = useTaskStore
@@ -43,7 +59,7 @@ export const useTaskStore = create<TaskStore>((set) => ({
   editTask: (updatedTask) => {
     set((state) => ({
       tasks: state.tasks.map((task) =>
-        task.id === updatedTask.id ? updatedTask : task
+        task.id === updatedTask.id ? updatedTask : task,
       ),
     }));
     useListStore.getState().countedTask(updatedTask.listId!);

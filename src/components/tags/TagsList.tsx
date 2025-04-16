@@ -1,5 +1,5 @@
 import React from "react";
-import useTags from "./store/tagsStore";
+import useTags from "@/stores/tagsStore";
 import { TagsForm } from "./tagsForm";
 import { getContrastTextColor } from "@/lib/contrast";
 
@@ -21,7 +21,6 @@ export function TagsList() {
           );
         })}
       </div>
-      <TagsForm />
     </div>
   );
 }

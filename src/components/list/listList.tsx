@@ -1,8 +1,8 @@
 import { ScrollArea } from "../ui/scroll-area";
 import { ListCard } from "./listCard";
-import useListStore from "./store/listStore";
+import useListStore from "../../stores/listStore";
 import { useEffect } from "react";
-import { useFilterStore } from "../task/store/FilterStore";
+import { useFilterStore } from "@/stores/FilterStore";
 
 export function ListList() {
   const { lists, list, getList } = useListStore();
@@ -16,14 +16,14 @@ export function ListList() {
     }
   }, [list, filterByListId, resetFilter]);
 
-  const handleListClick = (id: number) => {
+  const handleListClick = (id: string) => {
     if (list?.id === id) {
       return;
     }
     getList(id);
   };
   return (
-    <div className="flex flex-col h-auto box-border font-semibold">
+    <div className="flex flex-col box-border font-semibold">
       <ScrollArea className="w-full">
         {lists.map((listItem) => (
           <ListCard

@@ -1,13 +1,11 @@
 import { Plus } from "lucide-react";
-import useTags from "./store/tagsStore";
+import useTags from "@/stores/tagsStore";
 import { FormEvent, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Popover } from "@radix-ui/react-popover";
 import { PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Tag } from "@/types/tags";
-import pkg from "react-color";
-const { BlockPicker } = pkg;
-
+import { HexColorPicker } from "react-colorful";
 export function TagsForm() {
   const { addTag } = useTags();
   const nameTag = useRef<HTMLInputElement>(null);
@@ -49,7 +47,7 @@ export function TagsForm() {
               ></button>
             </PopoverTrigger>
             <PopoverContent className="flex w-auto justify-center p-0 mt-2 ">
-              <BlockPicker color={color} onChange={(e) => setColor(e.hex)} />
+              <HexColorPicker color={color} onChange={setColor} />
             </PopoverContent>
           </Popover>
           <button type="submit" className="hidden"></button>

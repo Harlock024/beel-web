@@ -1,36 +1,42 @@
 import { create } from "zustand";
 import { List } from "@/types/list";
-import { useTaskStore } from "@/components/task/store/TaskStore";
-import { useFilterStore } from "@/components/task/store/FilterStore";
+import { useTaskStore } from "@/stores/TaskStore";
+import { useFilterStore } from "@/stores/FilterStore";
+
+import { v4 as uuidv4 } from "uuid";
+
+const LIST_ID = uuidv4().toString();
 
 type Store = {
   lists: List[];
   list: List | null;
-  getList: (id: number) => void;
+  getList: (id: string) => void;
   createList: (list: List) => void;
-  countedTask: (list_id: number) => void;
-  updateList: (id: number, updatedlist: Partial<List>) => void;
-  deleteList: (id: number) => void;
+  countedTask: (list_id: string) => void;
+  updateList: (id: string, updatedlist: Partial<List>) => void;
+  deleteList: (id: string) => void;
 };
 export const useListStore = create<Store>((set) => ({
-  lists: [{ id: 1, name: "personal", numTaskAsigned: 0, color: "", tasks: [] }],
+  lists: [
+    { id: LIST_ID, name: "personal", numTaskAsigned: 0, color: "", tasks: [] },
+  ],
   list: null,
   createList: (list) => set((state) => ({ lists: [...state.lists, list] })),
   updateList(id, updatedList) {
     set((state) => ({
       lists: state.lists.map((list) =>
-        list.id === id ? { ...list, ...updatedList } : list
+        list.id === id ? { ...list, ...updatedList } : list,
       ),
     }));
   },
-  countedTask: (list_id: number) => {
+  countedTask: (list_id: string) => {
     const taskList = useTaskStore.getState().tasks;
     const taskCount = taskList.filter((task) => task.listId === list_id);
     set((state) => ({
       lists: state.lists.map((list) =>
         list.id === list_id
           ? { ...list, numTaskAsigned: taskCount.length }
-          : list
+          : list,
       ),
     }));
   },
@@ -38,7 +44,7 @@ export const useListStore = create<Store>((set) => ({
     set((state) => ({
       lists: state.lists.filter((list) => list.id !== id),
     })),
-  getList: (id: number) => {
+  getList: (id: string) => {
     set((state) => {
       const selectedList = state.lists.find((list) => list.id === id) || null;
       if (selectedList) {

@@ -1,9 +1,9 @@
 import { useMemo } from "react";
-import { useTaskStore } from "./store/TaskStore";
+import { useTaskStore } from "@/stores/TaskStore";
 import { isToday, isTomorrow, isThisWeek } from "date-fns";
 import { TaskCard } from "./TaskCard";
 
-export function TodayTask({ className }: { className: string }) {
+export function TodayTask() {
   const { tasks } = useTaskStore();
 
   const filteredTasks = useMemo(() => {
@@ -18,7 +18,7 @@ export function TodayTask({ className }: { className: string }) {
   }, [tasks]);
 
   return (
-    <div className={className}>
+    <div>
       <section>
         <h2>Today{filteredTasks.today.length}</h2>
         {filteredTasks.today.length > 0 ? (

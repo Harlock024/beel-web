@@ -1,0 +1,11 @@
+---
+import Layout from "../../layouts/Layout.astro"
+import {TaskList} from "../../components/task/TaskList"
+---
+
+<Layout  title="All Tasks">
+    <div class="flex flex-col w-full">
+    <h1 class="text-3xl">All Tasks</h1>
+    <TaskList client:load />
+    </div>
+</Layout>
