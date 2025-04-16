@@ -2,7 +2,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
 import { Plus } from "lucide-react";
 import { useState } from "react";
-import useTagStore from "./store/tagsStore";
+import useTagStore from "@/stores/tagsStore";
 import { Tag } from "@/types/tags";
 
 import { getContrastTextColor } from "@/lib/contrast";

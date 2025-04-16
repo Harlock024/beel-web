@@ -1,10 +1,10 @@
-import { useTaskStore } from "@/components/task/store/TaskStore";
+import { useTaskStore } from "@/stores/TaskStore";
 import { Subtask } from "@/types/subTask";
 import { Task } from "@/types/task";
 import { create } from "zustand";
 
 type SubTaskStore = {
-  addSubTask: (subtask: Subtask, taskId: number) => void;
+  addSubTask: (subtask: Subtask, taskId: string) => void;
   deleteSubtask: (task: Task, subTask: Subtask) => void;
   countSubTask: (task: Task) => number;
 };

@@ -1,5 +1,5 @@
 import { Task } from "@/types/task";
-import { useTaskStore } from "../task/store/TaskStore";
+import { useTaskStore } from "@/stores/TaskStore";
 import { useMemo, useState } from "react";
 import { isToday, isTomorrow, isThisWeek } from "date-fns";
 import { TaskCard } from "./TaskCard";
@@ -10,11 +10,11 @@ export function UpcomingTask() {
   const filteredTasks = useMemo(() => {
     if (!tasks) return { today: [], tomorrow: [], thisWeek: [] };
     const todayTasks = tasks.filter((task) =>
-      task.dueDate ? isToday(task.dueDate) : false
+      task.dueDate ? isToday(task.dueDate) : false,
     );
 
     const tomorrowTasks = tasks.filter((task) =>
-      task.dueDate ? isTomorrow(task.dueDate) : false
+      task.dueDate ? isTomorrow(task.dueDate) : false,
     );
     const countUpcomingTasks = tasks.reduce(
       (acc, task) => {
@@ -29,7 +29,7 @@ export function UpcomingTask() {
         }
         return acc;
       },
-      { today: 0, tomorrow: 0, thisWeek: 0 }
+      { today: 0, tomorrow: 0, thisWeek: 0 },
     );
 
     const thisWeekTasks = tasks.filter(
@@ -37,7 +37,7 @@ export function UpcomingTask() {
         task.dueDate &&
         isThisWeek(task.dueDate, { weekStartsOn: 1 }) &&
         !isToday(task.dueDate) &&
-        !isTomorrow(task.dueDate)
+        !isTomorrow(task.dueDate),
     );
 
     return {

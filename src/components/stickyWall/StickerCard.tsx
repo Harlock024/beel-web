@@ -9,7 +9,7 @@ import { Button } from "../ui/button";
 interface StickerCardProps {
   sticker: Sticker;
   onUpdate: (sticker: Sticker) => void;
-  onDelete: (id: number) => void;
+  onDelete: (id: string) => void;
 }
 
 export function StickerCard({ sticker, onUpdate, onDelete }: StickerCardProps) {
@@ -23,7 +23,7 @@ export function StickerCard({ sticker, onUpdate, onDelete }: StickerCardProps) {
 
   function handleOnDelete(e: FormEvent) {
     e.preventDefault();
-    onDelete(sticker.id!);
+    onDelete(sticker.id);
   }
   function handleSave() {
     const updatedSticker = { ...sticker, title, description };

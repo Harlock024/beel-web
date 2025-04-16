@@ -2,11 +2,11 @@ import type { Task } from "@/types/task";
 import { Label } from "@/components/ui/label";
 import { Calendar, Hash, ChevronRight } from "lucide-react";
 import { format } from "date-fns";
-import useListStore from "../list/store/listStore";
+import useListStore from "../../stores/listStore";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useState } from "react";
-import { useTaskStore } from "./store/TaskStore";
+import { useTaskStore } from "@/stores/TaskStore";
 
 export function TaskCard({ task }: { task: Task }) {
   const [doneTask, setDoneTask] = useState(false);

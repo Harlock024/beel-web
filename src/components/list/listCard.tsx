@@ -1,6 +1,6 @@
 import { List } from "@/types/list";
 import { Label } from "../ui/label";
-import { useListStore } from "./store/listStore";
+import { useListStore } from "@/stores/listStore";
 
 interface ListCardProps {
   list: List;
@@ -23,12 +23,12 @@ export function ListCard({ list, isSelected, onClick }: ListCardProps) {
         ></div>
         <Label className="font-semibold truncate">{list.name}</Label>
       </div>
-      <div
+      {/* <div
         className="flex bg-gray-200 size-6 rounded-sm justify-center items-center text-sm font-medium"
         aria-label={`Number of tasks: ${list.numTaskAsigned}`}
       >
         {list.numTaskAsigned}
-      </div>
+      </div> */}
     </button>
   );
 }

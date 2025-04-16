@@ -1,7 +1,7 @@
 import { Tag } from "@/types/tags";
 import { Task } from "@/types/task";
 import { create } from "zustand";
-import { useTaskStore } from "@/components/task/store/TaskStore";
+import { useTaskStore } from "@/stores/TaskStore";
 
 type TagStore = {
   tags: Tag[];

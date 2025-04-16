@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import {
   ChevronsRight,
   ListChecks,
@@ -8,48 +9,45 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 
-export function SidebarTask({
-  onMenuClick,
-}: {
-  onMenuClick: (view: string) => void;
-}) {
+type TaskNav = {
+  title: string;
+  href: string;
+  icon: React.ReactNode;
+};
+
+const taskNav: TaskNav[] = [
+  {
+    title: "All Tasks",
+    icon: <List />,
+    href: "/tasks/all",
+  },
+  {
+    title: "Today",
+    icon: <ListChecks />,
+    href: "/tasks/today",
+  },
+  {
+    title: "Upcoming",
+    icon: <ChevronsRight />,
+    href: "/tasks/up-comming",
+  },
+];
+
+export function SidebarTask({ className }: { className: string }) {
   return (
-    <div className="flex flex-col h-1/3">
-      <h1 className="font-semibold text-lg">Tasks</h1>
-      <div
-        className="flex items-center gap-2 h-1/2 cursor-pointer"
-        onClick={() => onMenuClick("all task")}
-      >
-        <List className="h-5 w-5" />
-        All task
-      </div>
-      <div
-        className="flex items-center gap-2 h-1/2 cursor-pointer"
-        onClick={() => onMenuClick("today")}
-      >
-        <ListChecks className="h-5 w-5" />
-        Today
-      </div>
-      <div
-        className="flex items-center gap-2 h-1/2 cursor-pointer"
-        onClick={() => onMenuClick("upcoming")}
-      >
-        <ChevronsRight className="h-5 w-5" />
-        Upcoming
-      </div>
-      <div
-        className="flex items-center gap-2 h-1/2 cursor-pointer"
-        onClick={() => onMenuClick("calendar")}
-      >
-        <Calendar className="h-5 w-5" />
-        Calendar
-      </div>
-      <div
-        className="flex items-center gap-2 h-1/2 cursor-pointer"
-        onClick={() => onMenuClick("sticky-wall")}
-      >
-        <StickyNote className="h-5 w-5" />
-        Sticky Wall
+    <div className={cn(className, "")}>
+      <h2 className="font-semibold text-lg mb-3 text-gray-800">Tasks</h2>
+      <div className="space-y-2">
+        {taskNav.map((item) => (
+          <a
+            key={item.title}
+            href={item.href}
+            className="flex items-center gap-3 px-2 py-2 rounded-md text-gray-700 hover:bg-gray-200 transition-colors"
+          >
+            <span className="text-gray-600">{item.icon}</span>
+            <span>{item.title}</span>
+          </a>
+        ))}
       </div>
     </div>
   );

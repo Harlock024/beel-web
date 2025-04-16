@@ -1,0 +1,10 @@
+---
+import { TaskList } from "@/components/task/TaskList";
+import Layout from "@/layouts/Layout.astro";
+
+const { id } = Astro.params;
+---
+
+<Layout Title="List">
+    <TaskList client:load />
+</Layout>
